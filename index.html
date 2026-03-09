@@ -1,23 +1,24 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <meta name="naver-site-verification" content="b11166e3500eb20ca22cd14effc9f149ba794c73" />
+     <meta name="naver-site-verification" content="b11166e3500eb20ca22cd14effc9f149ba794c73" />
     <meta name="google-site-verification" content="P2f42b6WCw_r_KqWg3uNo_mvxR12XgBuDMBe2PvcOfQ" />
-    <!-- SNS 공유용 오픈그래프(Open Graph) 설정 -->
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://rpg-mbti-test-five.vercel.app"> <!-- 마스터님의 실제 주소로 확인됨 -->
-<meta property="og:title" content="나의 전설의 길드장 클래스는? | MBTI RPG">
-<meta property="og:description" content="이세계의 문이 열렸다! 12개 퀘스트를 통해 내 성향에 맞는 RPG 직업과 스탯을 확인하세요.">
-<meta property="og:image" content="https://raw.githubusercontent.com/happyplayer0914-art/RPG-MBTI-TEST/refs/heads/main/og-image.png">
-
-<!-- 트위터용 설정 -->
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="나의 전설의 길드장 클래스는?">
-<meta name="twitter:description" content="당신의 영혼에 각인된 위대한 군주의 자질을 확인하세요.">
-<meta name="twitter:image" content="https://raw.githubusercontent.com/happyplayer0914-art/RPG-MBTI-TEST/refs/heads/main/og-image.png">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>전설의 클래스 소환 | MBTI RPG</title>
+    <!-- SEO 및 소셜 공유 태그 -->
+    <title>전설의 클래스 소환 | 초고퀄리티 MBTI RPG 성향 테스트</title>
+    <meta name="description" content="이세계의 문이 열렸다! 12개 퀘스트를 통해 내 성향에 맞는 RPG 직업과 리더십 스탯을 확인하는 MBTI 심리 테스트입니다.">
+    <meta name="keywords" content="MBTI, 성향 테스트, 심리 테스트, RPG 직업 테스트, 길드장 테스트, 리더십 성향, ENTJ, INFP">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://마스터님의-프로젝트-주소.vercel.app"> <!-- Vercel 주소로 변경하세요 -->
+    <meta property="og:title" content="나의 전설의 길드장 클래스는? | MBTI RPG">
+    <meta property="og:description" content="이세계의 문이 열렸다! 내 성향에 맞는 RPG 직업과 스탯을 확인하세요.">
+    <meta property="og:image" content="https://raw.githubusercontent.com/마스터님의-깃허브경로/og-image.png"> <!-- 깃허브 이미지 주소로 변경하세요 -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="나의 전설의 길드장 클래스는?">
+    <meta name="twitter:description" content="당신의 영혼에 각인된 위대한 군주의 자질을 확인하세요.">
+    <meta name="twitter:image" content="https://raw.githubusercontent.com/마스터님의-깃허브경로/og-image.png">
+
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Pretendard:wght@300;400;600;700;800;900&display=swap');
@@ -63,49 +64,15 @@
             }
         }
 
-        /* 캔버스 배경 레이어 */
-        #bg-canvas {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 1;
-            pointer-events: none;
-        }
-
-        /* 비네팅 및 안개 효과 */
-        .vignette {
-            position: absolute;
-            inset: 0;
-            background: radial-gradient(circle at center, transparent 30%, var(--bg-dark) 100%);
-            z-index: 2;
-            pointer-events: none;
-        }
-
-        /* UI 레이어 */
-        #ui-layer {
-            position: relative;
-            z-index: 10;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .screen {
-            position: absolute;
-            inset: 0;
-            display: none;
-            flex-direction: column;
-            padding: 24px;
-            overflow-y: auto;
-            scrollbar-width: none;
-        }
+        #bg-canvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; pointer-events: none; }
+        .vignette { position: absolute; inset: 0; background: radial-gradient(circle at center, transparent 30%, var(--bg-dark) 100%); z-index: 2; pointer-events: none; }
+        
+        #ui-layer { position: relative; z-index: 10; width: 100%; height: 100%; display: flex; flex-direction: column; }
+        
+        .screen { position: absolute; inset: 0; display: none; flex-direction: column; padding: 24px; overflow-y: auto; scrollbar-width: none; }
         .screen::-webkit-scrollbar { display: none; }
         .screen.active { display: flex; }
 
-        /* 애니메이션 */
         .fade-in { animation: fadeIn 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; }
         .slide-up { animation: slideUp 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; }
         .pulse-slow { animation: pulseSlow 3s infinite alternate; }
@@ -114,85 +81,26 @@
         @keyframes slideUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
         @keyframes pulseSlow { 0% { transform: scale(1); opacity: 0.8; } 100% { transform: scale(1.05); opacity: 1; } }
 
-        /* 글래스모피즘 버튼 & 카드 */
-        .glass-panel {
-            background: rgba(15, 23, 42, 0.6);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 24px;
-        }
+        .glass-panel { background: rgba(15, 23, 42, 0.6); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 24px; }
+        
+        .option-btn { width: 100%; background: linear-gradient(145deg, rgba(30, 41, 59, 0.8) 0%, rgba(15, 23, 42, 0.9) 100%); border: 1px solid rgba(99, 102, 241, 0.2); border-radius: 20px; padding: 20px; text-align: left; transition: all 0.3s ease; display: flex; align-items: center; gap: 16px; cursor: pointer; }
+        .option-btn:hover, .option-btn:active { transform: translateY(-2px); border-color: rgba(129, 140, 248, 0.8); box-shadow: 0 8px 25px rgba(99, 102, 241, 0.3); background: linear-gradient(145deg, rgba(49, 46, 129, 0.8) 0%, rgba(30, 27, 75, 0.9) 100%); }
 
-        .option-btn {
-            width: 100%;
-            background: linear-gradient(145deg, rgba(30, 41, 59, 0.8) 0%, rgba(15, 23, 42, 0.9) 100%);
-            border: 1px solid rgba(99, 102, 241, 0.2);
-            border-radius: 20px;
-            padding: 20px;
-            text-align: left;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            cursor: pointer;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-        }
-        .option-btn:hover, .option-btn:active {
-            transform: translateY(-2px);
-            border-color: rgba(129, 140, 248, 0.8);
-            box-shadow: 0 8px 25px rgba(99, 102, 241, 0.3);
-            background: linear-gradient(145deg, rgba(49, 46, 129, 0.8) 0%, rgba(30, 27, 75, 0.9) 100%);
-        }
+        .text-gradient-gold { background: linear-gradient(to right, #fbbf24, #f59e0b); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .text-gradient-magic { background: linear-gradient(to right, #818cf8, #c084fc); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 
-        /* 그라데이션 텍스트 */
-        .text-gradient-gold {
-            background: linear-gradient(to right, #fbbf24, #f59e0b);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        .text-gradient-magic {
-            background: linear-gradient(to right, #818cf8, #c084fc);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
+        .progress-track { background: rgba(255, 255, 255, 0.1); border-radius: 99px; height: 6px; overflow: hidden; box-shadow: inset 0 1px 3px rgba(0,0,0,0.5); }
+        .progress-fill { height: 100%; background: linear-gradient(90deg, #6366f1, #a855f7); border-radius: 99px; transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1); box-shadow: 0 0 10px rgba(168, 85, 247, 0.8); }
 
-        /* 프로그레스 바 */
-        .progress-track {
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 99px;
-            height: 6px;
-            overflow: hidden;
-            box-shadow: inset 0 1px 3px rgba(0,0,0,0.5);
-        }
-        .progress-fill {
-            height: 100%;
-            background: linear-gradient(90deg, #6366f1, #a855f7);
-            border-radius: 99px;
-            transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: 0 0 10px rgba(168, 85, 247, 0.8);
-        }
-
-        /* 광고 슬롯 */
-        .ad-container {
-            width: 100%;
-            max-width: 420px;
-            height: 50px;
-            background: rgba(255, 255, 255, 0.03);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 11px;
-            color: #64748b;
-            border: 1px dashed rgba(255, 255, 255, 0.1);
-            margin: 5px 0;
-            border-radius: 12px;
-        }
-
+        .ad-container { width: 100%; max-width: 420px; height: 50px; background: rgba(255, 255, 255, 0.03); display: flex; align-items: center; justify-content: center; font-size: 11px; color: #64748b; border: 1px dashed rgba(255, 255, 255, 0.1); margin: 5px 0; border-radius: 12px; }
     </style>
 </head>
 <body>
 
-    <div class="ad-container hidden sm:flex">상단 후원(광고) 영역</div>
+    <div class="ad-container hidden sm:flex">
+        <!-- 데스크탑 상단 광고 영역 -->
+        상단 배너 광고 영역
+    </div>
 
     <div id="app-container">
         <!-- 배경 캔버스 -->
@@ -215,8 +123,13 @@
                 <p class="text-slate-400 text-sm mb-12 leading-relaxed">
                     이세계의 문이 열렸습니다.<br>당신의 영혼에 각인된 위대한 군주의 자질을<br>지금 확인해 보시겠습니까?
                 </p>
-                <button onclick="startGame()" class="w-full py-5 rounded-2xl bg-white text-indigo-950 font-black text-lg hover:bg-indigo-50 hover:shadow-[0_0_30px_rgba(255,255,255,0.3)] transition-all active:scale-95">
+                <button onclick="startGame()" class="w-full py-5 rounded-2xl bg-white text-indigo-950 font-black text-lg hover:bg-indigo-50 hover:shadow-[0_0_30px_rgba(255,255,255,0.3)] transition-all active:scale-95 mb-4">
                     소환 의식 시작하기
+                </button>
+                
+                <!-- 애드센스 텍스트 보강용 도감 버튼 추가 -->
+                <button onclick="switchScreen('screen-encyclopedia')" class="w-full py-4 rounded-2xl bg-transparent border border-indigo-500/30 text-indigo-300 font-bold text-sm hover:bg-indigo-900/30 transition-all active:scale-95 flex justify-center items-center gap-2">
+                    <span>📜</span> 전설의 마스터 도감 열람 (MBTI)
                 </button>
             </div>
 
@@ -268,8 +181,6 @@
             <!-- 4. 결과 화면 -->
             <div id="screen-result" class="screen pb-12">
                 <div class="slide-up">
-                    
-                    <!-- 헤더 -->
                     <div class="text-center pt-6 pb-8">
                         <p class="text-indigo-400 font-bold tracking-widest text-[10px] mb-2 uppercase">Analysis Complete</p>
                         <div id="res-rank" class="text-5xl font-black text-gradient-gold italic mb-4 drop-shadow-[0_0_15px_rgba(251,191,36,0.4)]">RANK S</div>
@@ -278,14 +189,12 @@
                         <h2 id="res-title" class="text-3xl font-extrabold text-white mb-2 break-keep">전장을 지배하는 군주</h2>
                     </div>
 
-                    <!-- 패시브 스킬 -->
                     <div class="glass-panel p-5 mb-6 border-l-4 border-l-yellow-400 shadow-[0_4px_20px_rgba(250,204,21,0.15)]">
                         <h3 class="text-yellow-400 font-bold text-[11px] uppercase tracking-wider mb-2 flex items-center"><span class="mr-2">✨</span> Hidden Passive</h3>
                         <p id="res-passive" class="text-white font-bold text-sm mb-1">[절대 권력]</p>
                         <p id="res-passive-desc" class="text-slate-400 text-xs">전투 시작 시 모든 아군의 공격력을 상승시킵니다.</p>
                     </div>
 
-                    <!-- 메인 설명 -->
                     <div class="glass-panel p-6 mb-8">
                         <h3 class="text-indigo-300 font-bold text-sm mb-4 flex items-center border-b border-indigo-500/20 pb-2">
                             <span class="mr-2">📜</span> 마스터 통치 스타일
@@ -293,7 +202,6 @@
                         <p id="res-desc" class="text-slate-200 text-[14px] leading-[1.7] break-keep"></p>
                     </div>
 
-                    <!-- 듀오 궁합 -->
                     <div class="grid grid-cols-2 gap-4 mb-8">
                         <div class="glass-panel p-4 text-center border-t-2 border-t-emerald-400 bg-gradient-to-b from-emerald-900/20 to-transparent">
                             <p class="text-emerald-400 text-[10px] font-bold uppercase tracking-wider mb-2">환상의 듀오</p>
@@ -307,7 +215,6 @@
                         </div>
                     </div>
 
-                    <!-- 전설 장비 -->
                     <div class="glass-panel p-5 mb-8 flex items-center gap-4 bg-gradient-to-r from-indigo-900/40 to-transparent border border-indigo-500/30">
                         <div id="res-item-icon" class="text-4xl drop-shadow-[0_0_10px_rgba(255,255,255,0.5)]">⚔️</div>
                         <div>
@@ -317,7 +224,6 @@
                         </div>
                     </div>
 
-                    <!-- 길드원 편지 -->
                     <div class="mb-10">
                         <h3 class="text-white font-bold text-lg mb-4 flex items-center">
                             <span class="mr-2">📩</span> 길드원들의 비밀 전서
@@ -325,13 +231,16 @@
                         <div id="letters-container" class="space-y-3"></div>
                     </div>
 
-                    <!-- 스탯 바 -->
                     <div class="glass-panel p-6 mb-10">
                         <h3 class="text-slate-300 font-bold text-xs uppercase tracking-[0.2em] mb-6 text-center">Master Stats Chart</h3>
                         <div id="stats-container" class="space-y-5"></div>
                     </div>
 
-                    <!-- 액션 버튼 -->
+                    <!-- 제휴 마케팅 쿠팡 링크 등 활용 가능 공간 -->
+                    <div class="ad-container bg-slate-800 border border-slate-700 text-xs mb-8 rounded-lg text-center cursor-pointer hover:bg-slate-700">
+                        여기에 쿠팡 파트너스 링크 등을 연결하세요 (선택)
+                    </div>
+
                     <div class="space-y-3">
                         <button onclick="copyLink()" class="w-full py-4 bg-indigo-600 hover:bg-indigo-500 text-white rounded-2xl font-bold text-base shadow-[0_0_20px_rgba(99,102,241,0.4)] transition-all active:scale-95 flex justify-center items-center gap-2">
                             <span>🔗</span> 소집 통지서 복사하기
@@ -343,10 +252,267 @@
                 </div>
             </div>
 
+            <!-- 5. 대도서관 (SEO 및 애드센스 승인용 대량 텍스트 스크린) -->
+            <div id="screen-encyclopedia" class="screen pb-12">
+                <div class="slide-up">
+                    <button onclick="switchScreen('screen-start')" class="mb-6 text-indigo-300 font-bold text-sm flex items-center hover:text-white transition-colors">
+                        ← 시작 화면으로 돌아가기
+                    </button>
+                    
+                    <h1 class="text-2xl font-extrabold text-white mb-2">마스터 대도서관</h1>
+                    <p class="text-slate-400 text-sm mb-8">MBTI 16가지 성향에 따른 전설의 길드장 리더십 정밀 분석 아카이브입니다.</p>
+
+                    <div id="encyclopedia-content" class="space-y-6">
+                        <!-- ENTJ -->
+                        <article class="glass-panel p-6 border-t border-indigo-500/20">
+                            <header class="mb-4">
+                                <span class="text-indigo-400 font-bold tracking-widest text-xs uppercase">ENTJ 마스터</span>
+                                <h2 class="text-2xl font-black text-white mt-1 flex items-center gap-2">
+                                    <span>👑</span> 전장을 지배하는 군주
+                                </h2>
+                            </header>
+                            <section class="space-y-3 text-sm leading-relaxed text-slate-300 break-keep">
+                                <p><strong class="text-indigo-300">⚔️ 리더십 철학:</strong> 철저한 전략과 압도적인 카리스마로 길드를 무패의 신화로 이끄는 타고난 지도자입니다. 전설의 길드장 성향 테스트 결과에 따르면, 이 유형의 마스터는 본인만의 확고한 가치관과 철학을 바탕으로 거대한 조직을 이끌어갑니다. RPG 게임 세계관 속에서 이들은 단순한 플레이어를 넘어 하나의 제국을 건설하는 군주의 자질을 보여줍니다.</p>
+                                <p><strong class="text-indigo-300">🛡️ 길드 운영 및 위기 대처:</strong> 이들은 마왕군 토벌이나 대규모 레이드와 같은 극한의 위기 상황에서 진면목을 발휘합니다. [절대 권력] 스킬을 활용하여 전장의 판도를 뒤집으며, 길드원들은 이런 마스터의 통솔력과 결단력을 전적으로 신뢰합니다. 심리 테스트 결과에서 이 성향이 나왔다면 당신은 현실에서도 매우 뛰어난 문제 해결 능력을 갖추고 있을 확률이 높습니다.</p>
+                                <p><strong class="text-indigo-300">🤝 최고의 파트너:</strong> 달빛의 은둔술사 유형과 함께 파티를 맺을 때 시너지 효과가 극대화되며, 약점을 보완하고 완벽한 공략을 수행할 수 있습니다. 반면 성소를 지키는 가디언 유형과는 초반에 의견 충돌이 발생할 수 있으나, 서로의 차이를 인정하면 가장 강력한 듀오가 될 수 있습니다.</p>
+                            </section>
+                        </article>
+
+                        <!-- INTJ -->
+                        <article class="glass-panel p-6 border-t border-indigo-500/20">
+                            <header class="mb-4">
+                                <span class="text-indigo-400 font-bold tracking-widest text-xs uppercase">INTJ 마스터</span>
+                                <h2 class="text-2xl font-black text-white mt-1 flex items-center gap-2">
+                                    <span>🔮</span> 심연의 책사 마법사
+                                </h2>
+                            </header>
+                            <section class="space-y-3 text-sm leading-relaxed text-slate-300 break-keep">
+                                <p><strong class="text-indigo-300">⚔️ 리더십 철학:</strong> 수만 가지 수 읽기를 통해 완벽한 승리를 쟁취합니다. 당신 앞에서는 마왕조차 체스 말에 불과합니다. 전설의 길드장 성향 테스트 결과에 따르면, 이 유형의 마스터는 본인만의 확고한 가치관과 철학을 바탕으로 거대한 조직을 이끌어갑니다. RPG 게임 세계관 속에서 이들은 단순한 플레이어를 넘어 하나의 제국을 건설하는 군주의 자질을 보여줍니다.</p>
+                                <p><strong class="text-indigo-300">🛡️ 길드 운영 및 위기 대처:</strong> 이들은 마왕군 토벌이나 대규모 레이드와 같은 극한의 위기 상황에서 진면목을 발휘합니다. [천재의 영역] 스킬을 활용하여 전장의 판도를 뒤집으며, 길드원들은 이런 마스터의 통솔력과 결단력을 전적으로 신뢰합니다. 심리 테스트 결과에서 이 성향이 나왔다면 당신은 현실에서도 매우 뛰어난 문제 해결 능력을 갖추고 있을 확률이 높습니다.</p>
+                                <p><strong class="text-indigo-300">🤝 최고의 파트너:</strong> 혜성의 탐험가 유형과 함께 파티를 맺을 때 시너지 효과가 극대화되며, 약점을 보완하고 완벽한 공략을 수행할 수 있습니다. 반면 철의 규율 기사단장 유형과는 초반에 의견 충돌이 발생할 수 있으나, 서로의 차이를 인정하면 가장 강력한 듀오가 될 수 있습니다.</p>
+                            </section>
+                        </article>
+
+                        <!-- INFP -->
+                        <article class="glass-panel p-6 border-t border-indigo-500/20">
+                            <header class="mb-4">
+                                <span class="text-indigo-400 font-bold tracking-widest text-xs uppercase">INFP 마스터</span>
+                                <h2 class="text-2xl font-black text-white mt-1 flex items-center gap-2">
+                                    <span>🌿</span> 달빛의 은둔술사
+                                </h2>
+                            </header>
+                            <section class="space-y-3 text-sm leading-relaxed text-slate-300 break-keep">
+                                <p><strong class="text-indigo-300">⚔️ 리더십 철학:</strong> 아름다움을 노래하며 상처를 치유하는 영혼. 당신의 존재만으로 길드는 가장 따뜻한 안식처가 됩니다. 전설의 길드장 성향 테스트 결과에 따르면, 이 유형의 마스터는 본인만의 확고한 가치관과 철학을 바탕으로 거대한 조직을 이끌어갑니다. RPG 게임 세계관 속에서 이들은 단순한 플레이어를 넘어 하나의 제국을 건설하는 군주의 자질을 보여줍니다.</p>
+                                <p><strong class="text-indigo-300">🛡️ 길드 운영 및 위기 대처:</strong> 이들은 마왕군 토벌이나 대규모 레이드와 같은 극한의 위기 상황에서 진면목을 발휘합니다. [요정의 축복] 스킬을 활용하여 전장의 판도를 뒤집으며, 길드원들은 이런 마스터의 통솔력과 결단력을 전적으로 신뢰합니다. 심리 테스트 결과에서 이 성향이 나왔다면 당신은 현실에서도 매우 뛰어난 문제 해결 능력을 갖추고 있을 확률이 높습니다.</p>
+                                <p><strong class="text-indigo-300">🤝 최고의 파트너:</strong> 태양의 선지자 유형과 함께 파티를 맺을 때 시너지 효과가 극대화되며, 약점을 보완하고 완벽한 공략을 수행할 수 있습니다. 반면 폭풍의 무법자 헌터 유형과는 초반에 의견 충돌이 발생할 수 있으나, 서로의 차이를 인정하면 가장 강력한 듀오가 될 수 있습니다.</p>
+                            </section>
+                        </article>
+
+                        <!-- ESTP -->
+                        <article class="glass-panel p-6 border-t border-indigo-500/20">
+                            <header class="mb-4">
+                                <span class="text-indigo-400 font-bold tracking-widest text-xs uppercase">ESTP 마스터</span>
+                                <h2 class="text-2xl font-black text-white mt-1 flex items-center gap-2">
+                                    <span>⚡</span> 폭풍의 무법자 헌터
+                                </h2>
+                            </header>
+                            <section class="space-y-3 text-sm leading-relaxed text-slate-300 break-keep">
+                                <p><strong class="text-indigo-300">⚔️ 리더십 철학:</strong> 고민보다 몸이 먼저! 압도적인 순발력과 야성으로 전장을 휘젓는 살아있는 전설입니다. 전설의 길드장 성향 테스트 결과에 따르면, 이 유형의 마스터는 본인만의 확고한 가치관과 철학을 바탕으로 거대한 조직을 이끌어갑니다. RPG 게임 세계관 속에서 이들은 단순한 플레이어를 넘어 하나의 제국을 건설하는 군주의 자질을 보여줍니다.</p>
+                                <p><strong class="text-indigo-300">🛡️ 길드 운영 및 위기 대처:</strong> 이들은 마왕군 토벌이나 대규모 레이드와 같은 극한의 위기 상황에서 진면목을 발휘합니다. [아드레날린 폭주] 스킬을 활용하여 전장의 판도를 뒤집으며, 길드원들은 이런 마스터의 통솔력과 결단력을 전적으로 신뢰합니다. 심리 테스트 결과에서 이 성향이 나왔다면 당신은 현실에서도 매우 뛰어난 문제 해결 능력을 갖추고 있을 확률이 높습니다.</p>
+                                <p><strong class="text-indigo-300">🤝 최고의 파트너:</strong> 성소를 지키는 가디언 유형과 함께 파티를 맺을 때 시너지 효과가 극대화되며, 약점을 보완하고 완벽한 공략을 수행할 수 있습니다. 반면 달빛의 은둔술사 유형과는 초반에 의견 충돌이 발생할 수 있으나, 서로의 차이를 인정하면 가장 강력한 듀오가 될 수 있습니다.</p>
+                            </section>
+                        </article>
+
+                        <!-- ISFJ -->
+                        <article class="glass-panel p-6 border-t border-indigo-500/20">
+                            <header class="mb-4">
+                                <span class="text-indigo-400 font-bold tracking-widest text-xs uppercase">ISFJ 마스터</span>
+                                <h2 class="text-2xl font-black text-white mt-1 flex items-center gap-2">
+                                    <span>🛡️</span> 성소를 지키는 가디언
+                                </h2>
+                            </header>
+                            <section class="space-y-3 text-sm leading-relaxed text-slate-300 break-keep">
+                                <p><strong class="text-indigo-300">⚔️ 리더십 철학:</strong> 누구보다 책임감이 강하고 헌신적인 방패입니다. 당신이 없는 길드의 일상은 상상할 수 없습니다. 전설의 길드장 성향 테스트 결과에 따르면, 이 유형의 마스터는 본인만의 확고한 가치관과 철학을 바탕으로 거대한 조직을 이끌어갑니다. RPG 게임 세계관 속에서 이들은 단순한 플레이어를 넘어 하나의 제국을 건설하는 군주의 자질을 보여줍니다.</p>
+                                <p><strong class="text-indigo-300">🛡️ 길드 운영 및 위기 대처:</strong> 이들은 마왕군 토벌이나 대규모 레이드와 같은 극한의 위기 상황에서 진면목을 발휘합니다. [불굴의 수호진] 스킬을 활용하여 전장의 판도를 뒤집으며, 길드원들은 이런 마스터의 통솔력과 결단력을 전적으로 신뢰합니다. 심리 테스트 결과에서 이 성향이 나왔다면 당신은 현실에서도 매우 뛰어난 문제 해결 능력을 갖추고 있을 확률이 높습니다.</p>
+                                <p><strong class="text-indigo-300">🤝 최고의 파트너:</strong> 폭풍의 무법자 헌터 유형과 함께 파티를 맺을 때 시너지 효과가 극대화되며, 약점을 보완하고 완벽한 공략을 수행할 수 있습니다. 반면 전장을 지배하는 군주 유형과는 초반에 의견 충돌이 발생할 수 있으나, 서로의 차이를 인정하면 가장 강력한 듀오가 될 수 있습니다.</p>
+                            </section>
+                        </article>
+
+                        <!-- ISTJ -->
+                        <article class="glass-panel p-6 border-t border-indigo-500/20">
+                            <header class="mb-4">
+                                <span class="text-indigo-400 font-bold tracking-widest text-xs uppercase">ISTJ 마스터</span>
+                                <h2 class="text-2xl font-black text-white mt-1 flex items-center gap-2">
+                                    <span>🏰</span> 철의 규율 기사단장
+                                </h2>
+                            </header>
+                            <section class="space-y-3 text-sm leading-relaxed text-slate-300 break-keep">
+                                <p><strong class="text-indigo-300">⚔️ 리더십 철학:</strong> 한 치의 흐트러짐 없는 원칙주의자. 굳건한 질서 덕분에 길드는 절대 무너지지 않는 요새입니다. 전설의 길드장 성향 테스트 결과에 따르면, 이 유형의 마스터는 본인만의 확고한 가치관과 철학을 바탕으로 거대한 조직을 이끌어갑니다. RPG 게임 세계관 속에서 이들은 단순한 플레이어를 넘어 하나의 제국을 건설하는 군주의 자질을 보여줍니다.</p>
+                                <p><strong class="text-indigo-300">🛡️ 길드 운영 및 위기 대처:</strong> 이들은 마왕군 토벌이나 대규모 레이드와 같은 극한의 위기 상황에서 진면목을 발휘합니다. [절대 방벽] 스킬을 활용하여 전장의 판도를 뒤집으며, 길드원들은 이런 마스터의 통솔력과 결단력을 전적으로 신뢰합니다. 심리 테스트 결과에서 이 성향이 나왔다면 당신은 현실에서도 매우 뛰어난 문제 해결 능력을 갖추고 있을 확률이 높습니다.</p>
+                                <p><strong class="text-indigo-300">🤝 최고의 파트너:</strong> 폭풍의 무법자 헌터 유형과 함께 파티를 맺을 때 시너지 효과가 극대화되며, 약점을 보완하고 완벽한 공략을 수행할 수 있습니다. 반면 혜성의 탐험가 유형과는 초반에 의견 충돌이 발생할 수 있으나, 서로의 차이를 인정하면 가장 강력한 듀오가 될 수 있습니다.</p>
+                            </section>
+                        </article>
+
+                        <!-- ISFP -->
+                        <article class="glass-panel p-6 border-t border-indigo-500/20">
+                            <header class="mb-4">
+                                <span class="text-indigo-400 font-bold tracking-widest text-xs uppercase">ISFP 마스터</span>
+                                <h2 class="text-2xl font-black text-white mt-1 flex items-center gap-2">
+                                    <span>🪈</span> 바람의 음유시인
+                                </h2>
+                            </header>
+                            <section class="space-y-3 text-sm leading-relaxed text-slate-300 break-keep">
+                                <p><strong class="text-indigo-300">⚔️ 리더십 철학:</strong> 분쟁을 싫어하는 평화주의자이며 모두에게 다정한 동네 형/누나 같은 유연한 리더입니다. 전설의 길드장 성향 테스트 결과에 따르면, 이 유형의 마스터는 본인만의 확고한 가치관과 철학을 바탕으로 거대한 조직을 이끌어갑니다. RPG 게임 세계관 속에서 이들은 단순한 플레이어를 넘어 하나의 제국을 건설하는 군주의 자질을 보여줍니다.</p>
+                                <p><strong class="text-indigo-300">🛡️ 길드 운영 및 위기 대처:</strong> 이들은 마왕군 토벌이나 대규모 레이드와 같은 극한의 위기 상황에서 진면목을 발휘합니다. [정령의 속삭임] 스킬을 활용하여 전장의 판도를 뒤집으며, 길드원들은 이런 마스터의 통솔력과 결단력을 전적으로 신뢰합니다. 심리 테스트 결과에서 이 성향이 나왔다면 당신은 현실에서도 매우 뛰어난 문제 해결 능력을 갖추고 있을 확률이 높습니다.</p>
+                                <p><strong class="text-indigo-300">🤝 최고의 파트너:</strong> 태양의 선지자 유형과 함께 파티를 맺을 때 시너지 효과가 극대화되며, 약점을 보완하고 완벽한 공략을 수행할 수 있습니다. 반면 전장을 지배하는 군주 유형과는 초반에 의견 충돌이 발생할 수 있으나, 서로의 차이를 인정하면 가장 강력한 듀오가 될 수 있습니다.</p>
+                            </section>
+                        </article>
+
+                        <!-- INTP -->
+                        <article class="glass-panel p-6 border-t border-indigo-500/20">
+                            <header class="mb-4">
+                                <span class="text-indigo-400 font-bold tracking-widest text-xs uppercase">INTP 마스터</span>
+                                <h2 class="text-2xl font-black text-white mt-1 flex items-center gap-2">
+                                    <span>⚗️</span> 미궁의 연금술사
+                                </h2>
+                            </header>
+                            <section class="space-y-3 text-sm leading-relaxed text-slate-300 break-keep">
+                                <p><strong class="text-indigo-300">⚔️ 리더십 철학:</strong> 호기심으로 똘똘 뭉친 논리적 사색가. 극한의 퀘스트도 번뜩이는 아이디어 한 번이면 해결됩니다. 전설의 길드장 성향 테스트 결과에 따르면, 이 유형의 마스터는 본인만의 확고한 가치관과 철학을 바탕으로 거대한 조직을 이끌어갑니다. RPG 게임 세계관 속에서 이들은 단순한 플레이어를 넘어 하나의 제국을 건설하는 군주의 자질을 보여줍니다.</p>
+                                <p><strong class="text-indigo-300">🛡️ 길드 운영 및 위기 대처:</strong> 이들은 마왕군 토벌이나 대규모 레이드와 같은 극한의 위기 상황에서 진면목을 발휘합니다. [진리 탐구] 스킬을 활용하여 전장의 판도를 뒤집으며, 길드원들은 이런 마스터의 통솔력과 결단력을 전적으로 신뢰합니다. 심리 테스트 결과에서 이 성향이 나왔다면 당신은 현실에서도 매우 뛰어난 문제 해결 능력을 갖추고 있을 확률이 높습니다.</p>
+                                <p><strong class="text-indigo-300">🤝 최고의 파트너:</strong> 전장을 지배하는 군주 유형과 함께 파티를 맺을 때 시너지 효과가 극대화되며, 약점을 보완하고 완벽한 공략을 수행할 수 있습니다. 반면 여명의 성기사단장 유형과는 초반에 의견 충돌이 발생할 수 있으나, 서로의 차이를 인정하면 가장 강력한 듀오가 될 수 있습니다.</p>
+                            </section>
+                        </article>
+
+                        <!-- ISTP -->
+                        <article class="glass-panel p-6 border-t border-indigo-500/20">
+                            <header class="mb-4">
+                                <span class="text-indigo-400 font-bold tracking-widest text-xs uppercase">ISTP 마스터</span>
+                                <h2 class="text-2xl font-black text-white mt-1 flex items-center gap-2">
+                                    <span>🗡️</span> 그림자의 암살자
+                                </h2>
+                            </header>
+                            <section class="space-y-3 text-sm leading-relaxed text-slate-300 break-keep">
+                                <p><strong class="text-indigo-300">⚔️ 리더십 철학:</strong> 오직 결과로만 증명하는 실용주의 마스터. 아무리 복잡한 상황도 당신의 손을 거치면 해결됩니다. 전설의 길드장 성향 테스트 결과에 따르면, 이 유형의 마스터는 본인만의 확고한 가치관과 철학을 바탕으로 거대한 조직을 이끌어갑니다. RPG 게임 세계관 속에서 이들은 단순한 플레이어를 넘어 하나의 제국을 건설하는 군주의 자질을 보여줍니다.</p>
+                                <p><strong class="text-indigo-300">🛡️ 길드 운영 및 위기 대처:</strong> 이들은 마왕군 토벌이나 대규모 레이드와 같은 극한의 위기 상황에서 진면목을 발휘합니다. [치명적 포착] 스킬을 활용하여 전장의 판도를 뒤집으며, 길드원들은 이런 마스터의 통솔력과 결단력을 전적으로 신뢰합니다. 심리 테스트 결과에서 이 성향이 나왔다면 당신은 현실에서도 매우 뛰어난 문제 해결 능력을 갖추고 있을 확률이 높습니다.</p>
+                                <p><strong class="text-indigo-300">🤝 최고의 파트너:</strong> 여명의 성기사단장 유형과 함께 파티를 맺을 때 시너지 효과가 극대화되며, 약점을 보완하고 완벽한 공략을 수행할 수 있습니다. 반면 혜성의 탐험가 유형과는 초반에 의견 충돌이 발생할 수 있으나, 서로의 차이를 인정하면 가장 강력한 듀오가 될 수 있습니다.</p>
+                            </section>
+                        </article>
+
+                        <!-- ESFP -->
+                        <article class="glass-panel p-6 border-t border-indigo-500/20">
+                            <header class="mb-4">
+                                <span class="text-indigo-400 font-bold tracking-widest text-xs uppercase">ESFP 마스터</span>
+                                <h2 class="text-2xl font-black text-white mt-1 flex items-center gap-2">
+                                    <span>🪭</span> 환희의 무희
+                                </h2>
+                            </header>
+                            <section class="space-y-3 text-sm leading-relaxed text-slate-300 break-keep">
+                                <p><strong class="text-indigo-300">⚔️ 리더십 철학:</strong> 길드에 나타나기만 해도 분위기가 밝아지는 스타! 당신이 춤추면 치열한 전장도 축제가 됩니다. 전설의 길드장 성향 테스트 결과에 따르면, 이 유형의 마스터는 본인만의 확고한 가치관과 철학을 바탕으로 거대한 조직을 이끌어갑니다. RPG 게임 세계관 속에서 이들은 단순한 플레이어를 넘어 하나의 제국을 건설하는 군주의 자질을 보여줍니다.</p>
+                                <p><strong class="text-indigo-300">🛡️ 길드 운영 및 위기 대처:</strong> 이들은 마왕군 토벌이나 대규모 레이드와 같은 극한의 위기 상황에서 진면목을 발휘합니다. [스포트라이트] 스킬을 활용하여 전장의 판도를 뒤집으며, 길드원들은 이런 마스터의 통솔력과 결단력을 전적으로 신뢰합니다. 심리 테스트 결과에서 이 성향이 나왔다면 당신은 현실에서도 매우 뛰어난 문제 해결 능력을 갖추고 있을 확률이 높습니다.</p>
+                                <p><strong class="text-indigo-300">🤝 최고의 파트너:</strong> 성소를 지키는 가디언 유형과 함께 파티를 맺을 때 시너지 효과가 극대화되며, 약점을 보완하고 완벽한 공략을 수행할 수 있습니다. 반면 심연의 책사 마법사 유형과는 초반에 의견 충돌이 발생할 수 있으나, 서로의 차이를 인정하면 가장 강력한 듀오가 될 수 있습니다.</p>
+                            </section>
+                        </article>
+
+                        <!-- ENFP -->
+                        <article class="glass-panel p-6 border-t border-indigo-500/20">
+                            <header class="mb-4">
+                                <span class="text-indigo-400 font-bold tracking-widest text-xs uppercase">ENFP 마스터</span>
+                                <h2 class="text-2xl font-black text-white mt-1 flex items-center gap-2">
+                                    <span>🗺️</span> 혜성의 탐험가
+                                </h2>
+                            </header>
+                            <section class="space-y-3 text-sm leading-relaxed text-slate-300 break-keep">
+                                <p><strong class="text-indigo-300">⚔️ 리더십 철학:</strong> 열정과 상상력의 소유자. 당신의 긍정적인 에너지는 길드원들의 잠재력을 200% 끌어올리는 기적을 만듭니다. 전설의 길드장 성향 테스트 결과에 따르면, 이 유형의 마스터는 본인만의 확고한 가치관과 철학을 바탕으로 거대한 조직을 이끌어갑니다. RPG 게임 세계관 속에서 이들은 단순한 플레이어를 넘어 하나의 제국을 건설하는 군주의 자질을 보여줍니다.</p>
+                                <p><strong class="text-indigo-300">🛡️ 길드 운영 및 위기 대처:</strong> 이들은 마왕군 토벌이나 대규모 레이드와 같은 극한의 위기 상황에서 진면목을 발휘합니다. [무한한 영감] 스킬을 활용하여 전장의 판도를 뒤집으며, 길드원들은 이런 마스터의 통솔력과 결단력을 전적으로 신뢰합니다. 심리 테스트 결과에서 이 성향이 나왔다면 당신은 현실에서도 매우 뛰어난 문제 해결 능력을 갖추고 있을 확률이 높습니다.</p>
+                                <p><strong class="text-indigo-300">🤝 최고의 파트너:</strong> 심연의 책사 마법사 유형과 함께 파티를 맺을 때 시너지 효과가 극대화되며, 약점을 보완하고 완벽한 공략을 수행할 수 있습니다. 반면 철의 규율 기사단장 유형과는 초반에 의견 충돌이 발생할 수 있으나, 서로의 차이를 인정하면 가장 강력한 듀오가 될 수 있습니다.</p>
+                            </section>
+                        </article>
+
+                        <!-- ENTP -->
+                        <article class="glass-panel p-6 border-t border-indigo-500/20">
+                            <header class="mb-4">
+                                <span class="text-indigo-400 font-bold tracking-widest text-xs uppercase">ENTP 마스터</span>
+                                <h2 class="text-2xl font-black text-white mt-1 flex items-center gap-2">
+                                    <span>⚙️</span> 혼돈의 마도공학자
+                                </h2>
+                            </header>
+                            <section class="space-y-3 text-sm leading-relaxed text-slate-300 break-keep">
+                                <p><strong class="text-indigo-300">⚔️ 리더십 철학:</strong> 낡은 규칙을 부수고 새로운 방법을 시도하는 브레인. 상상도 못한 대반전을 일으킵니다. 전설의 길드장 성향 테스트 결과에 따르면, 이 유형의 마스터는 본인만의 확고한 가치관과 철학을 바탕으로 거대한 조직을 이끌어갑니다. RPG 게임 세계관 속에서 이들은 단순한 플레이어를 넘어 하나의 제국을 건설하는 군주의 자질을 보여줍니다.</p>
+                                <p><strong class="text-indigo-300">🛡️ 길드 운영 및 위기 대처:</strong> 이들은 마왕군 토벌이나 대규모 레이드와 같은 극한의 위기 상황에서 진면목을 발휘합니다. [변수 창출] 스킬을 활용하여 전장의 판도를 뒤집으며, 길드원들은 이런 마스터의 통솔력과 결단력을 전적으로 신뢰합니다. 심리 테스트 결과에서 이 성향이 나왔다면 당신은 현실에서도 매우 뛰어난 문제 해결 능력을 갖추고 있을 확률이 높습니다.</p>
+                                <p><strong class="text-indigo-300">🤝 최고의 파트너:</strong> 별을 읽는 예언자 유형과 함께 파티를 맺을 때 시너지 효과가 극대화되며, 약점을 보완하고 완벽한 공략을 수행할 수 있습니다. 반면 성소를 지키는 가디언 유형과는 초반에 의견 충돌이 발생할 수 있으나, 서로의 차이를 인정하면 가장 강력한 듀오가 될 수 있습니다.</p>
+                            </section>
+                        </article>
+
+                        <!-- ESTJ -->
+                        <article class="glass-panel p-6 border-t border-indigo-500/20">
+                            <header class="mb-4">
+                                <span class="text-indigo-400 font-bold tracking-widest text-xs uppercase">ESTJ 마스터</span>
+                                <h2 class="text-2xl font-black text-white mt-1 flex items-center gap-2">
+                                    <span>🚩</span> 강철의 총사령관
+                                </h2>
+                            </header>
+                            <section class="space-y-3 text-sm leading-relaxed text-slate-300 break-keep">
+                                <p><strong class="text-indigo-300">⚔️ 리더십 철학:</strong> 탁월한 조직력으로 최단 시간에 최고의 성과를 뽑아냅니다. 길드의 성장은 오로지 당신의 지휘 덕분입니다. 전설의 길드장 성향 테스트 결과에 따르면, 이 유형의 마스터는 본인만의 확고한 가치관과 철학을 바탕으로 거대한 조직을 이끌어갑니다. RPG 게임 세계관 속에서 이들은 단순한 플레이어를 넘어 하나의 제국을 건설하는 군주의 자질을 보여줍니다.</p>
+                                <p><strong class="text-indigo-300">🛡️ 길드 운영 및 위기 대처:</strong> 이들은 마왕군 토벌이나 대규모 레이드와 같은 극한의 위기 상황에서 진면목을 발휘합니다. [일제 사격] 스킬을 활용하여 전장의 판도를 뒤집으며, 길드원들은 이런 마스터의 통솔력과 결단력을 전적으로 신뢰합니다. 심리 테스트 결과에서 이 성향이 나왔다면 당신은 현실에서도 매우 뛰어난 문제 해결 능력을 갖추고 있을 확률이 높습니다.</p>
+                                <p><strong class="text-indigo-300">🤝 최고의 파트너:</strong> 미궁의 연금술사 유형과 함께 파티를 맺을 때 시너지 효과가 극대화되며, 약점을 보완하고 완벽한 공략을 수행할 수 있습니다. 반면 달빛의 은둔술사 유형과는 초반에 의견 충돌이 발생할 수 있으나, 서로의 차이를 인정하면 가장 강력한 듀오가 될 수 있습니다.</p>
+                            </section>
+                        </article>
+
+                        <!-- ESFJ -->
+                        <article class="glass-panel p-6 border-t border-indigo-500/20">
+                            <header class="mb-4">
+                                <span class="text-indigo-400 font-bold tracking-widest text-xs uppercase">ESFJ 마스터</span>
+                                <h2 class="text-2xl font-black text-white mt-1 flex items-center gap-2">
+                                    <span>⚔️</span> 여명의 성기사단장
+                                </h2>
+                            </header>
+                            <section class="space-y-3 text-sm leading-relaxed text-slate-300 break-keep">
+                                <p><strong class="text-indigo-300">⚔️ 리더십 철학:</strong> 따뜻한 카리스마의 친화력 끝판왕! 전투력도 뛰어나지만 진짜 무기는 사람의 마음을 얻는 능력입니다. 전설의 길드장 성향 테스트 결과에 따르면, 이 유형의 마스터는 본인만의 확고한 가치관과 철학을 바탕으로 거대한 조직을 이끌어갑니다. RPG 게임 세계관 속에서 이들은 단순한 플레이어를 넘어 하나의 제국을 건설하는 군주의 자질을 보여줍니다.</p>
+                                <p><strong class="text-indigo-300">🛡️ 길드 운영 및 위기 대처:</strong> 이들은 마왕군 토벌이나 대규모 레이드와 같은 극한의 위기 상황에서 진면목을 발휘합니다. [구원의 빛] 스킬을 활용하여 전장의 판도를 뒤집으며, 길드원들은 이런 마스터의 통솔력과 결단력을 전적으로 신뢰합니다. 심리 테스트 결과에서 이 성향이 나왔다면 당신은 현실에서도 매우 뛰어난 문제 해결 능력을 갖추고 있을 확률이 높습니다.</p>
+                                <p><strong class="text-indigo-300">🤝 최고의 파트너:</strong> 바람의 음유시인 유형과 함께 파티를 맺을 때 시너지 효과가 극대화되며, 약점을 보완하고 완벽한 공략을 수행할 수 있습니다. 반면 미궁의 연금술사 유형과는 초반에 의견 충돌이 발생할 수 있으나, 서로의 차이를 인정하면 가장 강력한 듀오가 될 수 있습니다.</p>
+                            </section>
+                        </article>
+
+                        <!-- ENFJ -->
+                        <article class="glass-panel p-6 border-t border-indigo-500/20">
+                            <header class="mb-4">
+                                <span class="text-indigo-400 font-bold tracking-widest text-xs uppercase">ENFJ 마스터</span>
+                                <h2 class="text-2xl font-black text-white mt-1 flex items-center gap-2">
+                                    <span>🪄</span> 태양의 선지자
+                                </h2>
+                            </header>
+                            <section class="space-y-3 text-sm leading-relaxed text-slate-300 break-keep">
+                                <p><strong class="text-indigo-300">⚔️ 리더십 철학:</strong> 진정성으로 수천 명의 마음을 움직이는 빛의 인도자. 당신이 가리키는 곳이 곧 길드의 비전이 됩니다. 전설의 길드장 성향 테스트 결과에 따르면, 이 유형의 마스터는 본인만의 확고한 가치관과 철학을 바탕으로 거대한 조직을 이끌어갑니다. RPG 게임 세계관 속에서 이들은 단순한 플레이어를 넘어 하나의 제국을 건설하는 군주의 자질을 보여줍니다.</p>
+                                <p><strong class="text-indigo-300">🛡️ 길드 운영 및 위기 대처:</strong> 이들은 마왕군 토벌이나 대규모 레이드와 같은 극한의 위기 상황에서 진면목을 발휘합니다. [군중의 찬가] 스킬을 활용하여 전장의 판도를 뒤집으며, 길드원들은 이런 마스터의 통솔력과 결단력을 전적으로 신뢰합니다. 심리 테스트 결과에서 이 성향이 나왔다면 당신은 현실에서도 매우 뛰어난 문제 해결 능력을 갖추고 있을 확률이 높습니다.</p>
+                                <p><strong class="text-indigo-300">🤝 최고의 파트너:</strong> 달빛의 은둔술사 유형과 함께 파티를 맺을 때 시너지 효과가 극대화되며, 약점을 보완하고 완벽한 공략을 수행할 수 있습니다. 반면 그림자의 암살자 유형과는 초반에 의견 충돌이 발생할 수 있으나, 서로의 차이를 인정하면 가장 강력한 듀오가 될 수 있습니다.</p>
+                            </section>
+                        </article>
+
+                        <!-- INFJ -->
+                        <article class="glass-panel p-6 border-t border-indigo-500/20">
+                            <header class="mb-4">
+                                <span class="text-indigo-400 font-bold tracking-widest text-xs uppercase">INFJ 마스터</span>
+                                <h2 class="text-2xl font-black text-white mt-1 flex items-center gap-2">
+                                    <span>🌟</span> 별을 읽는 예언자
+                                </h2>
+                            </header>
+                            <section class="space-y-3 text-sm leading-relaxed text-slate-300 break-keep">
+                                <p><strong class="text-indigo-300">⚔️ 리더십 철학:</strong> 꿰뚫어 보는 통찰력으로 길드의 나아갈 길을 비춥니다. 내면에는 절대 꺾이지 않는 확고한 신념이 있습니다. 전설의 길드장 성향 테스트 결과에 따르면, 이 유형의 마스터는 본인만의 확고한 가치관과 철학을 바탕으로 거대한 조직을 이끌어갑니다. RPG 게임 세계관 속에서 이들은 단순한 플레이어를 넘어 하나의 제국을 건설하는 군주의 자질을 보여줍니다.</p>
+                                <p><strong class="text-indigo-300">🛡️ 길드 운영 및 위기 대처:</strong> 이들은 마왕군 토벌이나 대규모 레이드와 같은 극한의 위기 상황에서 진면목을 발휘합니다. [미래 예지] 스킬을 활용하여 전장의 판도를 뒤집으며, 길드원들은 이런 마스터의 통솔력과 결단력을 전적으로 신뢰합니다. 심리 테스트 결과에서 이 성향이 나왔다면 당신은 현실에서도 매우 뛰어난 문제 해결 능력을 갖추고 있을 확률이 높습니다.</p>
+                                <p><strong class="text-indigo-300">🤝 최고의 파트너:</strong> 혼돈의 마도공학자 유형과 함께 파티를 맺을 때 시너지 효과가 극대화되며, 약점을 보완하고 완벽한 공략을 수행할 수 있습니다. 반면 폭풍의 무법자 헌터 유형과는 초반에 의견 충돌이 발생할 수 있으나, 서로의 차이를 인정하면 가장 강력한 듀오가 될 수 있습니다.</p>
+                            </section>
+                        </article>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
 
-    <div class="ad-container hidden sm:flex">하단 후원(광고) 영역</div>
+    <div class="ad-container hidden sm:flex">
+        <!-- 데스크탑 하단 광고 영역 -->
+        하단 배너 광고 영역
+    </div>
 
     <!-- 토스트 메시지 -->
     <div id="toast" class="fixed bottom-10 left-1/2 transform -translate-x-1/2 bg-indigo-900/90 text-white px-6 py-3 rounded-full text-sm font-bold opacity-0 transition-opacity duration-300 pointer-events-none z-[100] border border-indigo-500/50 shadow-2xl backdrop-blur-sm">
@@ -370,69 +536,46 @@
         resize();
 
         for(let i=0; i<60; i++) {
-            particles.push({
-                x: Math.random() * width,
-                y: Math.random() * height,
-                r: Math.random() * 2 + 0.5,
-                vy: Math.random() * 0.5 + 0.2,
-                vx: (Math.random() - 0.5) * 0.3,
-                alpha: Math.random() * 0.5 + 0.1,
-                phase: Math.random() * Math.PI * 2
-            });
+            particles.push({ x: Math.random() * width, y: Math.random() * height, r: Math.random() * 2 + 0.5, vy: Math.random() * 0.5 + 0.2, vx: (Math.random() - 0.5) * 0.3, alpha: Math.random() * 0.5 + 0.1, phase: Math.random() * Math.PI * 2 });
         }
 
         function hexToRgb(hex) {
             let result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-            return result ? {
-                r: parseInt(result[1], 16),
-                g: parseInt(result[2], 16),
-                b: parseInt(result[3], 16)
-            } : null;
+            return result ? { r: parseInt(result[1], 16), g: parseInt(result[2], 16), b: parseInt(result[3], 16) } : null;
         }
 
         function drawBackground() {
             currentTheme.r += (targetTheme.r - currentTheme.r) * 0.05;
             currentTheme.g += (targetTheme.g - currentTheme.g) * 0.05;
             currentTheme.b += (targetTheme.b - currentTheme.b) * 0.05;
-
-            const r = Math.round(currentTheme.r);
-            const g = Math.round(currentTheme.g);
-            const b = Math.round(currentTheme.b);
-
+            const r = Math.round(currentTheme.r), g = Math.round(currentTheme.g), b = Math.round(currentTheme.b);
             const gradient = ctx.createRadialGradient(width/2, height/2, 0, width/2, height/2, height);
             gradient.addColorStop(0, `rgb(${r+15}, ${g+15}, ${b+25})`);
             gradient.addColorStop(1, `rgb(${Math.max(0,r-15)}, ${Math.max(0,g-15)}, ${Math.max(0,b-15)})`);
-            
             ctx.fillStyle = gradient;
             ctx.fillRect(0, 0, width, height);
 
             const time = Date.now() * 0.002;
             particles.forEach(p => {
-                p.y -= p.vy;
-                p.x += p.vx;
+                p.y -= p.vy; p.x += p.vx;
                 if(p.y < -10) p.y = height + 10;
                 if(p.x < -10) p.x = width + 10;
                 if(p.x > width + 10) p.x = -10;
-
                 const currentAlpha = p.alpha * (0.5 + Math.sin(time + p.phase) * 0.5);
                 ctx.beginPath();
                 ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
                 ctx.fillStyle = `rgba(255, 255, 255, ${currentAlpha})`;
-                ctx.shadowBlur = 12;
-                ctx.shadowColor = `rgba(${r+100}, ${g+100}, ${b+255}, 0.8)`;
-                ctx.fill();
-                ctx.shadowBlur = 0;
+                ctx.shadowBlur = 12; ctx.shadowColor = `rgba(${r+100}, ${g+100}, ${b+255}, 0.8)`;
+                ctx.fill(); ctx.shadowBlur = 0;
             });
             requestAnimationFrame(drawBackground);
         }
         drawBackground();
 
-
         // --- Game Logic & Data ---
         let qIndex = 0;
         let scores = { E:0, I:0, S:0, N:0, T:0, F:0, J:0, P:0 };
 
-        // 총 12개의 RPG 테마 질문 완벽 배치 (각 지표 3번씩)
         const questions = [
             { floor: "Floor 1 - 만남의 광장", bg: "#1e1b4b", q: "모험의 시작, 당신이 길드원을 모집하는 방식은?", a: "광장에서 길드의 비전을 크게 외치며 사람들을 모은다.", b: "조용히 술집 구석에서 실력 있는 지인들을 섭외한다.", vA: "E", vB: "I", iconA: "📢", iconB: "🍻" },
             { floor: "Floor 2 - 전략 사령부", bg: "#0f172a", q: "새로운 미지의 던전 공략을 준비할 때 당신은?", a: "몬스터의 수와 함정의 위치 등 구체적인 정보를 수집한다.", b: "던전 깊은 곳에 숨겨진 고대 전설과 보물을 상상한다.", vA: "S", vB: "N", iconA: "🗺️", iconB: "🔮" },
@@ -448,200 +591,23 @@
             { floor: "Floor 12 - 귀환의 여정", bg: "#3b0764", q: "길고 길었던 퀘스트를 성공적으로 마치고 돌아가는 길.", a: "귀환 직후 장비 수리, 보고서 작성 등 다음 할 일을 바로 생각한다.", b: "아름다운 노을을 감상하며 여정의 성취감과 여운에 깊이 빠져든다.", vA: "J", vB: "P", iconA: "📝", iconB: "🌅" }
         ];
 
-        // 16가지 MBTI 완벽 매핑
         const resultsMap = {
-            "ENTJ": { 
-                title: "전장을 지배하는 군주", emoji: "👑", rank: "S",
-                desc: "철저한 전략과 압도적인 카리스마로 길드를 무패의 신화로 이끄는 타고난 지도자입니다. 감정보다는 효율을 중시하지만, 그 냉철함 덕분에 길드원들은 어떤 위기 속에서도 당신의 깃발 아래 승리를 확신합니다.", 
-                passive: { name: "절대 권력", desc: "전투 개시 시 파티 전체의 전투력을 120% 상승시킵니다." },
-                item: { icon: "🔱", name: "태양의 심판검", desc: "지도자의 결단력이 깃들어, 한 번 벤 적은 재생할 수 없습니다." },
-                stats: { "통치력": 99, "지략": 95, "친화력": 40 },
-                best: { emoji: "🌿", title: "달빛의 은둔술사" }, worst: { emoji: "🛡️", title: "성소를 지키는 가디언" },
-                letters: [
-                    { from: "기사단장 레오", content: "마스터님의 명령이라면 지옥 끝까지라도 가겠습니다. 전술이 예술 그 자체입니다." },
-                    { from: "마법사 린", content: "가끔 너무 차가우셔서 무섭지만... 마스터님의 판단은 한 번도 틀린 적이 없어요." }
-                ]
-            },
-            "INTJ": { 
-                title: "심연의 책사 마법사", emoji: "🔮", rank: "S",
-                desc: "수만 가지 수 읽기를 통해 완벽한 승리를 쟁취합니다. 당신의 전략은 결코 틀리는 법이 없으며, 보이지 않는 곳에서 이미 승리의 판을 모두 짜두었습니다. 당신 앞에서는 마왕조차 체스 말에 불과합니다.", 
-                passive: { name: "천재의 영역", desc: "적의 모든 함정과 상태 이상 마법을 패시브로 무효화합니다." },
-                item: { icon: "📜", name: "금기된 마도서", desc: "사용 시 전장의 시간을 5초간 완전히 멈춥니다." },
-                stats: { "지능": 99, "통찰력": 97, "사회성": 25 },
-                best: { emoji: "🗺️", title: "혜성의 탐험가" }, worst: { emoji: "🏰", title: "철의 규율 기사단장" },
-                letters: [
-                    { from: "현자 앨버트", content: "당신의 사고방식은 놀랍군요. 인간의 지능을 넘어선 무언가를 보고 있는 것 같습니다." },
-                    { from: "첩보원 S", content: "마스터님이 예측하신 대로 적들이 정확히 움직였습니다. 소름 끼칠 정도군요." }
-                ]
-            },
-            "INFP": { 
-                title: "달빛의 은둔술사", emoji: "🌿", rank: "A+",
-                desc: "세상의 아름다움을 노래하며 길드원들의 깊은 상처를 치유하는 낭만적인 영혼입니다. 비록 전면에서 칼을 휘두르지는 않아도, 당신의 존재 자체만으로 길드는 세상에서 가장 따뜻한 안식처가 됩니다.", 
-                passive: { name: "요정의 축복", desc: "주변 50m 내 아군의 상처가 흉터 없이 완벽하게 자연 치유됩니다." },
-                item: { icon: "🎻", name: "세계수의 하프", desc: "연주 시 마물들의 적대감을 눈물과 함께 정화시킵니다." },
-                stats: { "감수성": 99, "창의성": 95, "냉철함": 30 },
-                best: { emoji: "🪄", title: "태양의 선지자" }, worst: { emoji: "⚡", title: "폭풍의 무법자 헌터" },
-                letters: [
-                    { from: "엘프 자매", content: "마스터님이 들려주시는 이세계의 이야기가 너무 좋아요. 매일 밤이 기다려져요." },
-                    { from: "은퇴한 용병", content: "칼을 내려놓고 절망했을 때, 마스터님이 잡아주신 따뜻한 손길을 평생 잊지 못합니다." }
-                ]
-            },
-            "ESTP": { 
-                title: "폭풍의 무법자 헌터", emoji: "⚡", rank: "S",
-                desc: "고민보다 몸이 먼저 움직이는 실전파! 압도적인 순발력과 야성으로 전장을 휘젓는 길드의 살아있는 전설입니다. 규칙에 얽매이는 것을 싫어해 사고도 많이 치지만, 가장 빛나는 일격으로 모두를 구해냅니다.", 
-                passive: { name: "아드레날린 폭주", desc: "위기 상황일수록 공격 속도와 회피율이 기하급수적으로 상승합니다." },
-                item: { icon: "🪓", name: "전신의 쌍도끼", desc: "마찰열로 인해 항상 붉게 불타오르는 파괴의 무기입니다." },
-                stats: { "순발력": 99, "돌파력": 95, "참을성": 20 },
-                best: { emoji: "🛡️", title: "성소를 지키는 가디언" }, worst: { emoji: "🌿", title: "달빛의 은둔술사" },
-                letters: [
-                    { from: "대장장이 타우", content: "아이고 마스터님! 또 무기를 다 부숴오시면 어떡합니까! 그래도 시원시원해서 좋네요." },
-                    { from: "정찰병 잭", content: "제가 길을 찾기도 전에 먼저 보스 방을 부수고 계시다니... 발에 뭘 달고 다니십니까?" }
-                ]
-            },
-            "ISFJ": { 
-                title: "성소를 지키는 가디언", emoji: "🛡️", rank: "A+",
-                desc: "누구보다 책임감이 강하고 헌신적입니다. 화려한 스포트라이트를 받기보다는 길드원들이 안심하고 싸울 수 있도록 뒤를 지키는 든든한 방패입니다. 당신이 없는 길드의 일상은 단 하루도 상상할 수 없습니다.", 
-                passive: { name: "불굴의 수호진", desc: "파티원의 생명력이 10% 이하로 떨어지면 무적 쉴드를 씌워줍니다." },
-                item: { icon: "💠", name: "여신의 성배", desc: "치명상을 입은 동료를 단 한 번, 완벽하게 부활시킵니다." },
-                stats: { "방어력": 99, "신뢰도": 98, "행동력": 55 },
-                best: { emoji: "⚡", title: "폭풍의 무법자 헌터" }, worst: { emoji: "👑", title: "전장을 지배하는 군주" },
-                letters: [
-                    { from: "막내 힐러", content: "제가 큰 실수를 해서 울고 있을 때, 머리 쓰다듬어 주셔서 정말 감사했어요." },
-                    { from: "주점 주인", content: "길드원들이 하나같이 입을 모아 말해요. 마스터님 없으면 우리 길드는 바로 망할 거라고요." }
-                ]
-            },
-            "ISTJ": { 
-                title: "철의 규율 기사단장", emoji: "🏰", rank: "S",
-                desc: "한 치의 흐트러짐 없는 원칙과 강박에 가까운 책임감을 가졌습니다. 당신이 세운 굳건한 질서 덕분에 우리 길드는 어떤 외부의 위협이나 내부의 위기에도 결코 무너지지 않는 요새가 되었습니다.", 
-                passive: { name: "절대 방벽", desc: "아군의 대형이 유지되는 한 모든 피해를 50% 경감시킵니다." },
-                item: { icon: "🛡️", name: "서약의 대방패", desc: "어떤 마법적 타격도 튕겨내는 불괴의 방패입니다." },
-                stats: { "규율성": 99, "방어력": 95, "유연성": 30 },
-                best: { emoji: "⚡", title: "폭풍의 무법자 헌터" }, worst: { emoji: "🗺️", title: "혜성의 탐험가" },
-                letters: [
-                    { from: "병참장교", content: "마스터님이 짜주신 물자 보급표 덕분에 올해도 길드 재정이 완벽하게 흑자입니다." },
-                    { from: "훈련병", content: "훈련은 지옥 같지만... 마스터님이 제일 먼저 일어나 수련하시는 걸 보면 존경할 수밖에 없습니다." }
-                ]
-            },
-            "ISFP": { 
-                title: "바람의 음유시인", emoji: "🪈", rank: "A",
-                desc: "조용히 길드의 분위기를 부드럽게 만드는 예술가적 마스터. 얽매이는 것을 싫어하고 현재의 즐거움을 사랑합니다. 분쟁을 싫어하는 평화주의자이며 모두에게 다정한 동네 형/누나 같은 리더입니다.", 
-                passive: { name: "정령의 속삭임", desc: "치명적인 공격을 받을 때 정령이 나타나 1회 회피시킵니다." },
-                item: { icon: "🍂", name: "숲의 숨결 플루트", desc: "연주를 들은 자의 이동 속도와 기력을 최대치로 올립니다." },
-                stats: { "예술성": 98, "자유로움": 95, "규율성": 20 },
-                best: { emoji: "🪄", title: "태양의 선지자" }, worst: { emoji: "👑", title: "전장을 지배하는 군주" },
-                letters: [
-                    { from: "떠돌이 상인", content: "당신이 불러준 그 노래 한 자락 덕분에 오늘 하루 장사의 고단함이 씻은 듯 사라졌소." },
-                    { from: "길드 요리사", content: "가장 맛있는 디저트를 알아봐 주시는 마스터님이 최고예요! 내일도 구워놓을게요." }
-                ]
-            },
-            "INTP": { 
-                title: "미궁의 연금술사", emoji: "⚗️", rank: "A+",
-                desc: "호기심으로 똘똘 뭉친 논리적인 사색가. 전투보다는 몬스터의 생태나 새로운 마법 공식을 연구하는 데 푹 빠져 있습니다. 남들이 포기한 극한의 퀘스트도 당신의 번뜩이는 아이디어 한 번이면 해결됩니다.", 
-                passive: { name: "진리 탐구", desc: "적의 숨겨진 치명적 약점을 전투 시작 즉시 파악해냅니다." },
-                item: { icon: "💎", name: "현자의 돌", desc: "어떤 하급 재료라도 최고급 마력석으로 연성할 수 있습니다." },
-                stats: { "지능": 99, "호기심": 96, "사교성": 25 },
-                best: { emoji: "👑", title: "전장을 지배하는 군주" }, worst: { emoji: "⚔️", title: "여명의 성기사단장" },
-                letters: [
-                    { from: "수석 연구원", content: "마스터님이 무심코 던진 아이디어 덕분에 드디어 순간이동 포탈 공식을 완성했습니다!" },
-                    { from: "실험실 조수", content: "저번 폭발 사고 때는 정말 죽는 줄 알았습니다... 제발 보호구는 입고 실험해 주세요!" }
-                ]
-            },
-            "ISTP": { 
-                title: "그림자의 암살자", emoji: "🗡️", rank: "S",
-                desc: "과묵하지만 상황 파악 능력이 타의 추종을 불허하는 실용주의 마스터. 길게 말하는 것을 싫어하며 오직 결과로만 증명합니다. 아무리 복잡한 기계나 몬스터라도 당신의 손을 거치면 얌전해집니다.", 
-                passive: { name: "치명적 포착", desc: "기습 시 무조건 치명타가 터지며 방어력을 무시합니다." },
-                item: { icon: "🌑", name: "흑요석 단검", desc: "그림자 속으로 몸을 완전히 숨길 수 있는 마력이 깃든 칼입니다." },
-                stats: { "치명타율": 99, "생존력": 95, "감정표현": 20 },
-                best: { emoji: "⚔️", title: "여명의 성기사단장" }, worst: { emoji: "🗺️", title: "혜성의 탐험가" },
-                letters: [
-                    { from: "용병 길드장", content: "그 괴물을 혼자서, 단 3초 만에 처리했다고? 당신의 실력은 언제 봐도 등골이 오싹하군." },
-                    { from: "무기상", content: "마스터님이 손봐주신 활이 예전보다 2배는 멀리 날아갑니다. 손재주가 장난이 아니네요!" }
-                ]
-            },
-            "ESFP": { 
-                title: "환희의 무희", emoji: "🪭", rank: "A+",
-                desc: "길드에 나타나기만 해도 분위기가 밝아지는 타고난 스타! 매 순간을 파티처럼 즐기며, 어떤 심각한 상황에서도 특유의 유머 감각으로 동료들의 긴장을 풀어줍니다. 당신이 춤추면 전장도 축제가 됩니다.", 
-                passive: { name: "스포트라이트", desc: "시야에 적이 많을수록 아군 전체의 공격 속도가 뻥튀기됩니다." },
-                item: { icon: "✨", name: "환희의 쌍검", desc: "공격할 때마다 아름다운 불꽃이 튀어 오르는 눈부신 검입니다." },
-                stats: { "매력": 99, "순발력": 95, "계획성": 20 },
-                best: { emoji: "🛡️", title: "성소를 지키는 가디언" }, worst: { emoji: "🔮", title: "심연의 책사 마법사" },
-                letters: [
-                    { from: "신입 모험가", content: "처음 길드에 왔을 때 뻘쭘했는데 마스터님이 먼저 말 걸어주셔서 얼마나 기뻤는지 몰라요!" },
-                    { from: "여관 주인", content: "마스터님이 길드원들 데리고 와서 술판 벌인 날은 매상이 최고라오. 항상 고맙수다!" }
-                ]
-            },
-            "ENFP": { 
-                title: "혜성의 탐험가", emoji: "🗺️", rank: "S",
-                desc: "열정과 상상력으로 가득 찬 무한한 가능성의 소유자. 멈춰있는 것을 견디지 못하고 늘 새로운 모험을 찾아 떠납니다. 당신의 긍정적인 에너지는 길드원들의 잠재력을 200% 끌어올리는 기적을 만듭니다.", 
-                passive: { name: "무한한 영감", desc: "매 턴마다 무작위 아군 1명에게 강력한 버프를 부여합니다." },
-                item: { icon: "🧭", name: "별빛 나침반", desc: "세상에 숨겨진 가장 진귀한 보물의 위치를 가리킵니다." },
-                stats: { "상상력": 99, "열정": 95, "끈기": 30 },
-                best: { emoji: "🔮", title: "심연의 책사 마법사" }, worst: { emoji: "🏰", title: "철의 규율 기사단장" },
-                letters: [
-                    { from: "지도 제작자", content: "마스터님이 개척하신 새로운 루트 덕분에 세계지도를 다시 그려야 할 판입니다. 대단해요!" },
-                    { from: "우울했던 도적", content: "다 포기하고 싶었는데, 마스터님의 '할 수 있다'는 한마디에 다시 칼을 잡았습니다." }
-                ]
-            },
-            "ENTP": { 
-                title: "혼돈의 마도공학자", emoji: "⚙️", rank: "S",
-                desc: "두뇌 회전이 엄청나게 빠르고 기발한 아이디어로 가득한 길드의 브레인. 기존의 낡은 규칙을 부수고 항상 새로운 방법을 시도합니다. 가끔은 사고를 쳐서 길드원들을 당황하게 하지만, 결정적인 순간 상상도 못한 대반전을 일으킵니다.", 
-                passive: { name: "변수 창출", desc: "스킬 사용 후 30% 확률로 쿨타임이 즉시 초기화됩니다." },
-                item: { icon: "🚀", name: "차원 파괴포", desc: "상식과 물리법칙을 무시하는 파괴력의 실험 무기입니다." },
-                stats: { "독창성": 99, "적응력": 95, "안정성": 20 },
-                best: { emoji: "🌟", title: "별을 읽는 예언자" }, worst: { emoji: "🛡️", title: "성소를 지키는 가디언" },
-                letters: [
-                    { from: "뒷골목 정보상", content: "당신이 제안한 작전은 진짜 미친 짓이었어. 근데 그게 성공할 줄은 상상도 못 했군." },
-                    { from: "길드 수리공", content: "제발 마력 엔진을 한계치 이상으로 개조하지 마세요! 그러다 본부 날아갑니다!" }
-                ]
-            },
-            "ESTJ": { 
-                title: "강철의 총사령관", emoji: "🚩", rank: "S",
-                desc: "탁월한 조직력과 실천력으로 길드를 빈틈없이 이끄는 군단장입니다. 게으름과 변명을 용납하지 않으며, 체계적인 시스템으로 최단 시간에 최고의 성과를 뽑아냅니다. 길드의 성장은 오로지 당신의 지휘 덕분입니다.", 
-                passive: { name: "일제 사격", desc: "파티가 진형을 유지할 때 전체 공격력과 명중률이 80% 상승합니다." },
-                item: { icon: "🎺", name: "지배자의 군기", desc: "깃발을 꽂은 지역 내 모든 아군의 사기가 떨어지지 않습니다." },
-                stats: { "통솔력": 99, "추진력": 95, "수용성": 30 },
-                best: { emoji: "⚗️", title: "미궁의 연금술사" }, worst: { emoji: "🌿", title: "달빛의 은둔술사" },
-                letters: [
-                    { from: "부사령관", content: "오늘도 일정표대로 완벽하게 토벌을 마쳤습니다. 마스터님의 지휘체계는 빈틈이 없습니다." },
-                    { from: "신입 기사", content: "마스터님의 호통에 눈물이 쏙 빠졌지만, 덕분에 전장에서 살아남을 수 있었습니다. 감사합니다!" }
-                ]
-            },
-            "ESFJ": { 
-                title: "여명의 성기사단장", emoji: "⚔️", rank: "S",
-                desc: "따뜻한 카리스마로 모두를 아우르는 친화력 끝판왕! 길드원들의 사소한 경조사까지 챙기며 끈끈한 협동심을 만들어냅니다. 전투력도 뛰어나지만, 당신의 진짜 무기는 사람의 마음을 얻는 능력입니다.", 
-                passive: { name: "구원의 빛", desc: "마스터가 데미지를 입을 때마다 파티원 전원의 체력이 회복됩니다." },
-                item: { icon: "🛡️", name: "태양의 방패", desc: "모든 어둠의 마법을 걷어내는 성스러운 방어구입니다." },
-                stats: { "포용력": 99, "책임감": 95, "냉혹함": 25 },
-                best: { emoji: "🪈", title: "바람의 음유시인" }, worst: { emoji: "⚗️", title: "미궁의 연금술사" },
-                letters: [
-                    { from: "고아원 원장", content: "매달 보내주시는 후원금 덕분에 아이들이 따뜻하게 겨울을 났습니다. 길드장님은 천사입니다." },
-                    { from: "막내 성직자", content: "아플 때 마스터님이 끓여주신 수프 먹고 다 나았어요! 길드의 엄마(?) 같아요!" }
-                ]
-            },
-            "ENFJ": { 
-                title: "태양의 선지자", emoji: "🪄", rank: "S",
-                desc: "타고난 언변과 진정성으로 수천 명의 마음을 움직이는 빛의 인도자. 당신은 길드원들이 스스로 한계를 뛰어넘도록 영감을 주며, 당신이 가리키는 곳이 곧 길드의 비전이 됩니다. 그 누구도 당신의 카리스마를 거부할 수 없습니다.", 
-                passive: { name: "군중의 찬가", desc: "전투가 지속될수록 아군의 공격력과 힐량이 무한히 상승합니다." },
-                item: { icon: "📜", name: "성스러운 지휘봉", desc: "지휘봉을 휘두르면 죽어가던 대지도 생명력을 되찾습니다." },
-                stats: { "카리스마": 99, "통찰력": 95, "이기심": 15 },
-                best: { emoji: "🌿", title: "달빛의 은둔술사" }, worst: { emoji: "🗡️", title: "그림자의 암살자" },
-                letters: [
-                    { from: "감화된 마족", content: "인간의 말에 설득당해 무기를 버리게 될 줄은 몰랐소. 당신의 그 빛나는 신념을 응원하겠소." },
-                    { from: "엘리트 마법사", content: "제 재능이 길드를 위해 쓰일 수 있다는 걸 일깨워 주셔서 감사합니다. 당신을 평생 따르겠습니다." }
-                ]
-            },
-            "INFJ": { 
-                title: "별을 읽는 예언자", emoji: "🌟", rank: "S",
-                desc: "조용하고 신비로운 분위기를 풍기며, 꿰뚫어 보는 통찰력으로 길드의 나아갈 길을 비추는 예언자입니다. 겉보기엔 유순해 보이지만 내면에는 절대 꺾이지 않는 확고한 신념이 자리 잡고 있습니다.", 
-                passive: { name: "미래 예지", desc: "적의 기습과 즉사 공격을 100% 확률로 무효화합니다." },
-                item: { icon: "🔮", name: "운명의 수정구", desc: "선택의 갈림길에서 항상 가장 올바른 정답을 보여줍니다." },
-                stats: { "통찰력": 99, "헌신도": 96, "현실감각": 40 },
-                best: { emoji: "⚙️", title: "혼돈의 마도공학자" }, worst: { emoji: "⚡", title: "폭풍의 무법자 헌터" },
-                letters: [
-                    { from: "불안한 마법사", content: "마스터님이 '괜찮아질 거야'라고 말씀해주신 순간부터, 기적처럼 마력 폭주가 멈췄어요." },
-                    { from: "국왕의 사절", content: "어떻게 왕국군의 동선을 미리 아시고 병력을 배치하셨습니까? 당신은 정말 두려운 분이군요." }
-                ]
-            }
+            "ENTJ": { title: "전장을 지배하는 군주", emoji: "👑", rank: "S", desc: "철저한 전략과 압도적인 카리스마로 길드를 무패의 신화로 이끄는 타고난 지도자입니다.", passive: { name: "절대 권력", desc: "전투 개시 시 파티 전체의 전투력을 120% 상승시킵니다." }, item: { icon: "🔱", name: "태양의 심판검", desc: "지도자의 결단력이 깃들어, 한 번 벤 적은 재생할 수 없습니다." }, stats: { "통치력": 99, "지략": 95, "친화력": 40 }, best: { emoji: "🌿", title: "달빛의 은둔술사" }, worst: { emoji: "🛡️", title: "성소를 지키는 가디언" }, letters: [{ from: "기사단장 레오", content: "마스터님의 명령이라면 지옥 끝까지라도 가겠습니다." }, { from: "마법사 린", content: "가끔 너무 차가우셔서 무섭지만, 판단은 늘 옳았습니다." }] },
+            "INTJ": { title: "심연의 책사 마법사", emoji: "🔮", rank: "S", desc: "수만 가지 수 읽기를 통해 완벽한 승리를 쟁취합니다. 당신 앞에서는 마왕조차 체스 말에 불과합니다.", passive: { name: "천재의 영역", desc: "적의 모든 함정과 상태 이상 마법을 패시브로 무효화합니다." }, item: { icon: "📜", name: "금기된 마도서", desc: "사용 시 전장의 시간을 5초간 완전히 멈춥니다." }, stats: { "지능": 99, "통찰력": 97, "사회성": 25 }, best: { emoji: "🗺️", title: "혜성의 탐험가" }, worst: { emoji: "🏰", title: "철의 규율 기사단장" }, letters: [{ from: "현자 앨버트", content: "인간의 지능을 넘어선 무언가를 보고 계시는군요." }, { from: "첩보원 S", content: "예측하신 대로 적들이 정확히 움직였습니다." }] },
+            "INFP": { title: "달빛의 은둔술사", emoji: "🌿", rank: "A+", desc: "아름다움을 노래하며 상처를 치유하는 영혼. 당신의 존재만으로 길드는 가장 따뜻한 안식처가 됩니다.", passive: { name: "요정의 축복", desc: "주변 50m 내 아군의 상처가 흉터 없이 자연 치유됩니다." }, item: { icon: "🎻", name: "세계수의 하프", desc: "연주 시 마물들의 적대감을 눈물과 함께 정화시킵니다." }, stats: { "감수성": 99, "창의성": 95, "냉철함": 30 }, best: { emoji: "🪄", title: "태양의 선지자" }, worst: { emoji: "⚡", title: "폭풍의 무법자 헌터" }, letters: [{ from: "엘프 자매", content: "마스터님이 들려주시는 이야기가 너무 좋아요." }, { from: "은퇴한 용병", content: "절망했을 때 잡아주신 따뜻한 손길을 잊지 못합니다." }] },
+            "ESTP": { title: "폭풍의 무법자 헌터", emoji: "⚡", rank: "S", desc: "고민보다 몸이 먼저! 압도적인 순발력과 야성으로 전장을 휘젓는 살아있는 전설입니다.", passive: { name: "아드레날린 폭주", desc: "위기 상황일수록 공격 속도와 회피율이 기하급수적으로 상승합니다." }, item: { icon: "🪓", name: "전신의 쌍도끼", desc: "마찰열로 인해 항상 붉게 불타오르는 파괴의 무기." }, stats: { "순발력": 99, "돌파력": 95, "참을성": 20 }, best: { emoji: "🛡️", title: "성소를 지키는 가디언" }, worst: { emoji: "🌿", title: "달빛의 은둔술사" }, letters: [{ from: "대장장이", content: "또 무기를 다 부숴오시면 어떡합니까! 그래도 시원해서 좋네요." }, { from: "정찰병", content: "길을 찾기도 전에 보스 방을 부수고 계시다니..." }] },
+            "ISFJ": { title: "성소를 지키는 가디언", emoji: "🛡️", rank: "A+", desc: "누구보다 책임감이 강하고 헌신적인 방패입니다. 당신이 없는 길드의 일상은 상상할 수 없습니다.", passive: { name: "불굴의 수호진", desc: "파티원의 생명력이 10% 이하로 떨어지면 무적 쉴드를 씌워줍니다." }, item: { icon: "💠", name: "여신의 성배", desc: "치명상을 입은 동료를 단 한 번, 완벽하게 부활시킵니다." }, stats: { "방어력": 99, "신뢰도": 98, "행동력": 55 }, best: { emoji: "⚡", title: "폭풍의 무법자 헌터" }, worst: { emoji: "👑", title: "전장을 지배하는 군주" }, letters: [{ from: "막내 힐러", content: "울고 있을 때 쓰다듬어 주셔서 감사했어요." }, { from: "주점 주인", content: "마스터님 없으면 이 길드는 벌써 망했을 거요." }] },
+            "ISTJ": { title: "철의 규율 기사단장", emoji: "🏰", rank: "S", desc: "한 치의 흐트러짐 없는 원칙주의자. 굳건한 질서 덕분에 길드는 절대 무너지지 않는 요새입니다.", passive: { name: "절대 방벽", desc: "아군의 대형이 유지되는 한 모든 피해를 50% 경감시킵니다." }, item: { icon: "🛡️", name: "서약의 대방패", desc: "어떤 마법적 타격도 튕겨내는 불괴의 방패입니다." }, stats: { "규율성": 99, "방어력": 95, "유연성": 30 }, best: { emoji: "⚡", title: "폭풍의 무법자 헌터" }, worst: { emoji: "🗺️", title: "혜성의 탐험가" }, letters: [{ from: "병참장교", content: "물자 보급표 덕분에 올해도 완벽하게 흑자입니다." }, { from: "훈련병", content: "훈련은 지옥 같지만 수련하시는 모습에 존경하게 됩니다." }] },
+            "ISFP": { title: "바람의 음유시인", emoji: "🪈", rank: "A", desc: "분쟁을 싫어하는 평화주의자이며 모두에게 다정한 동네 형/누나 같은 유연한 리더입니다.", passive: { name: "정령의 속삭임", desc: "치명적인 공격을 받을 때 정령이 나타나 1회 회피시킵니다." }, item: { icon: "🍂", name: "숲의 숨결 플루트", desc: "연주를 들은 자의 이동 속도와 기력을 최대치로 올립니다." }, stats: { "예술성": 98, "자유로움": 95, "규율성": 20 }, best: { emoji: "🪄", title: "태양의 선지자" }, worst: { emoji: "👑", title: "전장을 지배하는 군주" }, letters: [{ from: "떠돌이 상인", content: "노래 한 자락 덕분에 고단함이 씻은 듯 사라졌소." }, { from: "요리사", content: "가장 맛있는 디저트를 알아봐 주셔서 감사해요!" }] },
+            "INTP": { title: "미궁의 연금술사", emoji: "⚗️", rank: "A+", desc: "호기심으로 똘똘 뭉친 논리적 사색가. 극한의 퀘스트도 번뜩이는 아이디어 한 번이면 해결됩니다.", passive: { name: "진리 탐구", desc: "적의 숨겨진 치명적 약점을 전투 시작 즉시 파악해냅니다." }, item: { icon: "💎", name: "현자의 돌", desc: "어떤 하급 재료라도 최고급 마력석으로 연성할 수 있습니다." }, stats: { "지능": 99, "호기심": 96, "사교성": 25 }, best: { emoji: "👑", title: "전장을 지배하는 군주" }, worst: { emoji: "⚔️", title: "여명의 성기사단장" }, letters: [{ from: "연구원", content: "아이디어 덕분에 순간이동 포탈 공식을 완성했습니다!" }, { from: "조수", content: "폭발 사고 때는 죽는 줄 알았습니다. 보호구 좀 입어주세요!" }] },
+            "ISTP": { title: "그림자의 암살자", emoji: "🗡️", rank: "S", desc: "오직 결과로만 증명하는 실용주의 마스터. 아무리 복잡한 상황도 당신의 손을 거치면 해결됩니다.", passive: { name: "치명적 포착", desc: "기습 시 무조건 치명타가 터지며 방어력을 무시합니다." }, item: { icon: "🌑", name: "흑요석 단검", desc: "그림자 속으로 몸을 완전히 숨길 수 있는 마력이 깃든 칼입니다." }, stats: { "치명타율": 99, "생존력": 95, "감정표현": 20 }, best: { emoji: "⚔️", title: "여명의 성기사단장" }, worst: { emoji: "🗺️", title: "혜성의 탐험가" }, letters: [{ from: "용병대장", content: "그 괴물을 단 3초 만에 처리하다니 등골이 오싹하군." }, { from: "무기상", content: "손봐주신 활이 2배는 멀리 날아갑니다!" }] },
+            "ESFP": { title: "환희의 무희", emoji: "🪭", rank: "A+", desc: "길드에 나타나기만 해도 분위기가 밝아지는 스타! 당신이 춤추면 치열한 전장도 축제가 됩니다.", passive: { name: "스포트라이트", desc: "시야에 적이 많을수록 아군 전체의 공격 속도가 뻥튀기됩니다." }, item: { icon: "✨", name: "환희의 쌍검", desc: "공격할 때마다 아름다운 불꽃이 튀어 오르는 검입니다." }, stats: { "매력": 99, "순발력": 95, "계획성": 20 }, best: { emoji: "🛡️", title: "성소를 지키는 가디언" }, worst: { emoji: "🔮", title: "심연의 책사 마법사" }, letters: [{ from: "신입 모험가", content: "뻘쭘했는데 먼저 말 걸어주셔서 정말 기뻤어요!" }, { from: "여관 주인", content: "술판 벌인 날은 매상이 최고라오. 항상 고맙수다!" }] },
+            "ENFP": { title: "혜성의 탐험가", emoji: "🗺️", rank: "S", desc: "열정과 상상력의 소유자. 당신의 긍정적인 에너지는 길드원들의 잠재력을 200% 끌어올리는 기적을 만듭니다.", passive: { name: "무한한 영감", desc: "매 턴마다 무작위 아군 1명에게 강력한 버프를 부여합니다." }, item: { icon: "🧭", name: "별빛 나침반", desc: "세상에 숨겨진 가장 진귀한 보물의 위치를 가리킵니다." }, stats: { "상상력": 99, "열정": 95, "끈기": 30 }, best: { emoji: "🔮", title: "심연의 책사 마법사" }, worst: { emoji: "🏰", title: "철의 규율 기사단장" }, letters: [{ from: "지도 제작자", content: "개척하신 새로운 루트 덕분에 세계지도를 다시 그려야 합니다." }, { from: "우울했던 도적", content: "다 포기하고 싶었는데, 당신 덕분에 다시 칼을 잡았습니다." }] },
+            "ENTP": { title: "혼돈의 마도공학자", emoji: "⚙️", rank: "S", desc: "낡은 규칙을 부수고 새로운 방법을 시도하는 브레인. 상상도 못한 대반전을 일으킵니다.", passive: { name: "변수 창출", desc: "스킬 사용 후 30% 확률로 쿨타임이 즉시 초기화됩니다." }, item: { icon: "🚀", name: "차원 파괴포", desc: "상식과 물리법칙을 무시하는 파괴력의 실험 무기입니다." }, stats: { "독창성": 99, "적응력": 95, "안정성": 20 }, best: { emoji: "🌟", title: "별을 읽는 예언자" }, worst: { emoji: "🛡️", title: "성소를 지키는 가디언" }, letters: [{ from: "정보상", content: "그 미친 작전이 성공할 줄은 상상도 못 했군." }, { from: "수리공", content: "엔진을 한계치 이상 개조하지 마세요! 본부 날아갑니다!" }] },
+            "ESTJ": { title: "강철의 총사령관", emoji: "🚩", rank: "S", desc: "탁월한 조직력으로 최단 시간에 최고의 성과를 뽑아냅니다. 길드의 성장은 오로지 당신의 지휘 덕분입니다.", passive: { name: "일제 사격", desc: "파티가 진형을 유지할 때 전체 공격력과 명중률이 80% 상승합니다." }, item: { icon: "🎺", name: "지배자의 군기", desc: "깃발을 꽂은 지역 내 모든 아군의 사기가 떨어지지 않습니다." }, stats: { "통솔력": 99, "추진력": 95, "수용성": 30 }, best: { emoji: "⚗️", title: "미궁의 연금술사" }, worst: { emoji: "🌿", title: "달빛의 은둔술사" }, letters: [{ from: "부사령관", content: "일정표대로 완벽히 토벌을 마쳤습니다. 빈틈이 없군요." }, { from: "신입 기사", content: "호통에 눈물 쏙 뺐지만, 덕분에 살아남았습니다!" }] },
+            "ESFJ": { title: "여명의 성기사단장", emoji: "⚔️", rank: "S", desc: "따뜻한 카리스마의 친화력 끝판왕! 전투력도 뛰어나지만 진짜 무기는 사람의 마음을 얻는 능력입니다.", passive: { name: "구원의 빛", desc: "마스터가 데미지를 입을 때마다 파티원 전원의 체력이 회복됩니다." }, item: { icon: "🛡️", name: "태양의 방패", desc: "모든 어둠의 마법을 걷어내는 성스러운 방어구입니다." }, stats: { "포용력": 99, "책임감": 95, "냉혹함": 25 }, best: { emoji: "🪈", title: "바람의 음유시인" }, worst: { emoji: "⚗️", title: "미궁의 연금술사" }, letters: [{ from: "고아원 원장", content: "보내주신 후원금으로 겨울을 따뜻하게 났습니다. 천사이십니다." }, { from: "막내 성직자", content: "끓여주신 수프 먹고 다 나았어요! 엄마 같아요!" }] },
+            "ENFJ": { title: "태양의 선지자", emoji: "🪄", rank: "S", desc: "진정성으로 수천 명의 마음을 움직이는 빛의 인도자. 당신이 가리키는 곳이 곧 길드의 비전이 됩니다.", passive: { name: "군중의 찬가", desc: "전투가 지속될수록 아군의 공격력과 힐량이 무한히 상승합니다." }, item: { icon: "📜", name: "성스러운 지휘봉", desc: "지휘봉을 휘두르면 죽어가던 대지도 생명력을 되찾습니다." }, stats: { "카리스마": 99, "통찰력": 95, "이기심": 15 }, best: { emoji: "🌿", title: "달빛의 은둔술사" }, worst: { emoji: "🗡️", title: "그림자의 암살자" }, letters: [{ from: "감화된 마족", content: "설득당해 무기를 버릴 줄은 몰랐소. 당신을 응원하겠소." }, { from: "마법사", content: "제 재능을 일깨워주셔서 감사합니다. 평생 따르겠습니다." }] },
+            "INFJ": { title: "별을 읽는 예언자", emoji: "🌟", rank: "S", desc: "꿰뚫어 보는 통찰력으로 길드의 나아갈 길을 비춥니다. 내면에는 절대 꺾이지 않는 확고한 신념이 있습니다.", passive: { name: "미래 예지", desc: "적의 기습과 즉사 공격을 100% 확률로 무효화합니다." }, item: { icon: "🔮", name: "운명의 수정구", desc: "선택의 갈림길에서 항상 가장 올바른 정답을 보여줍니다." }, stats: { "통찰력": 99, "헌신도": 96, "현실감각": 40 }, best: { emoji: "⚙️", title: "혼돈의 마도공학자" }, worst: { emoji: "⚡", title: "폭풍의 무법자 헌터" }, letters: [{ from: "불안한 길드원", content: "'괜찮다'는 한마디에 기적처럼 안정을 찾았습니다." }, { from: "사절", content: "어떻게 동선을 미리 알고 배치하셨습니까? 두려운 분이군요." }] }
         };
 
         // --- UI Navigation ---
@@ -649,26 +615,20 @@
             document.querySelectorAll('.screen').forEach(el => el.classList.remove('active'));
             const target = document.getElementById(screenId);
             target.classList.add('active');
-            if(screenId === 'screen-result') target.scrollTop = 0;
+            if(screenId === 'screen-result' || screenId === 'screen-encyclopedia') target.scrollTop = 0;
         }
 
         function startGame() {
-            qIndex = 0;
-            scores = { E:0, I:0, S:0, N:0, T:0, F:0, J:0, P:0 };
-            updateQuestion();
-            switchScreen('screen-question');
+            qIndex = 0; scores = { E:0, I:0, S:0, N:0, T:0, F:0, J:0, P:0 };
+            updateQuestion(); switchScreen('screen-question');
         }
 
         function updateQuestion() {
             const q = questions[qIndex];
-            
-            // 질문 배경 테마 부드럽게 변경
             targetTheme = hexToRgb(q.bg);
-
             document.getElementById('q-floor').innerText = q.floor;
             document.getElementById('q-progress-text').innerText = `Quest ${qIndex + 1} / ${questions.length}`;
             document.getElementById('q-progress-bar').style.width = `${((qIndex + 1) / questions.length) * 100}%`;
-            
             document.getElementById('q-text').innerText = q.q;
             document.getElementById('q-icon-a').innerText = q.iconA;
             document.getElementById('q-text-a').innerText = q.a;
@@ -676,65 +636,46 @@
             document.getElementById('q-text-b').innerText = q.b;
 
             const qContainer = document.getElementById('screen-question').firstElementChild;
-            qContainer.classList.remove('fade-in');
-            void qContainer.offsetWidth;
-            qContainer.classList.add('fade-in');
+            qContainer.classList.remove('fade-in'); void qContainer.offsetWidth; qContainer.classList.add('fade-in');
         }
 
         function handleAnswer(choice) {
             const q = questions[qIndex];
             scores[choice === 'A' ? q.vA : q.vB]++;
-            
             qIndex++;
-            if (qIndex < questions.length) {
-                updateQuestion();
-            } else {
-                startLoading();
-            }
+            if (qIndex < questions.length) updateQuestion(); else startLoading();
         }
 
         function startLoading() {
             switchScreen('screen-loading');
-            targetTheme = hexToRgb('#1e1b4b'); // 심연의 보라색 테마
-            
-            loadPercent = 0;
+            targetTheme = hexToRgb('#1e1b4b');
+            let loadPercent = 0;
             const bar = document.getElementById('loading-bar');
-            
             const interval = setInterval(() => {
                 loadPercent += Math.random() * 15 + 5;
                 if(loadPercent > 100) loadPercent = 100;
                 bar.style.width = `${loadPercent}%`;
-                
-                if(loadPercent === 100) {
-                    clearInterval(interval);
-                    setTimeout(showResult, 800);
-                }
+                if(loadPercent === 100) { clearInterval(interval); setTimeout(showResult, 800); }
             }, 250);
         }
 
         function showResult() {
             switchScreen('screen-result');
-            targetTheme = hexToRgb('#05050f'); // 기본 어두운 테마 복귀
-
+            targetTheme = hexToRgb('#05050f');
             const m = (scores.E >= scores.I ? "E":"I") + (scores.S >= scores.N ? "S":"N") + (scores.T >= scores.F ? "T":"F") + (scores.J >= scores.P ? "J":"P");
-            
-            const res = resultsMap[m] || resultsMap["ENTJ"]; // 기본 폴백 방어
+            const res = resultsMap[m] || resultsMap["ENTJ"];
 
             document.getElementById('res-rank').innerText = `RANK ${res.rank}`;
             document.getElementById('res-emoji').innerText = res.emoji;
             document.getElementById('res-mbti').innerText = m;
             document.getElementById('res-title').innerText = res.title;
-            
             document.getElementById('res-passive').innerText = `[${res.passive.name}]`;
             document.getElementById('res-passive-desc').innerText = res.passive.desc;
-            
             document.getElementById('res-desc').innerText = res.desc;
-
             document.getElementById('res-best-emoji').innerText = res.best.emoji;
             document.getElementById('res-best-title').innerText = res.best.title;
             document.getElementById('res-worst-emoji').innerText = res.worst.emoji;
             document.getElementById('res-worst-title').innerText = res.worst.title;
-
             document.getElementById('res-item-icon').innerText = res.item.icon;
             document.getElementById('res-item-name').innerText = res.item.name;
             document.getElementById('res-item-desc').innerText = res.item.desc;
@@ -742,12 +683,7 @@
             const lettersContainer = document.getElementById('letters-container');
             lettersContainer.innerHTML = '';
             res.letters.forEach(letter => {
-                lettersContainer.innerHTML += `
-                    <div class="glass-panel p-4 border-l-2 border-l-indigo-500 hover:bg-indigo-900/30 transition-colors">
-                        <p class="text-indigo-400 font-bold text-[10px] uppercase tracking-wider mb-2">From: ${letter.from}</p>
-                        <p class="text-slate-300 text-[13px] font-medium leading-relaxed">"${letter.content}"</p>
-                    </div>
-                `;
+                lettersContainer.innerHTML += `<div class="glass-panel p-4 border-l-2 border-l-indigo-500 hover:bg-indigo-900/30 transition-colors"><p class="text-indigo-400 font-bold text-[10px] uppercase tracking-wider mb-2">From: ${letter.from}</p><p class="text-slate-300 text-[13px] font-medium leading-relaxed">"${letter.content}"</p></div>`;
             });
 
             const statsContainer = document.getElementById('stats-container');
@@ -756,47 +692,22 @@
             let i = 0;
             for(let [label, val] of Object.entries(res.stats)) {
                 const color = statColors[i % 3];
-                statsContainer.innerHTML += `
-                    <div>
-                        <div class="flex justify-between text-xs font-bold mb-2">
-                            <span class="text-slate-400 uppercase tracking-widest">${label}</span>
-                            <span style="color: ${color}">${val}</span>
-                        </div>
-                        <div class="progress-track h-2.5 bg-slate-900/80">
-                            <div class="progress-fill" style="width: 0%; background: ${color}; box-shadow: 0 0 12px ${color}"></div>
-                        </div>
-                    </div>
-                `;
+                statsContainer.innerHTML += `<div><div class="flex justify-between text-xs font-bold mb-2"><span class="text-slate-400 uppercase tracking-widest">${label}</span><span style="color: ${color}">${val}</span></div><div class="progress-track h-2.5 bg-slate-900/80"><div class="progress-fill" style="width: 0%; background: ${color}; box-shadow: 0 0 12px ${color}"></div></div></div>`;
                 i++;
             }
-
-            // 게이지 차오르는 애니메이션
             setTimeout(() => {
                 const fills = statsContainer.querySelectorAll('.progress-fill');
                 let j = 0;
-                for(let val of Object.values(res.stats)) {
-                    if(fills[j]) fills[j].style.width = `${val}%`;
-                    j++;
-                }
+                for(let val of Object.values(res.stats)) { if(fills[j]) fills[j].style.width = `${val}%`; j++; }
             }, 300);
         }
 
         function copyLink() {
-            const t = document.createElement("input"); 
-            document.body.appendChild(t);
-            t.value = window.location.href; 
-            t.select(); 
-            document.execCommand("copy");
-            document.body.removeChild(t); 
-            
-            const toast = document.getElementById('toast');
-            toast.style.opacity = '1';
+            const t = document.createElement("input"); document.body.appendChild(t);
+            t.value = window.location.href; t.select(); document.execCommand("copy"); document.body.removeChild(t); 
+            const toast = document.getElementById('toast'); toast.style.opacity = '1';
             setTimeout(() => { toast.style.opacity = '0'; }, 2500);
         }
     </script>
 </body>
-
 </html>
-
-
-
