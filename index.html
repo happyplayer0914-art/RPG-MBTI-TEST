@@ -242,10 +242,8 @@
                         <div id="stats-container" class="space-y-5"></div>
                     </div>
 
-                    <!-- 제휴 마케팅 쿠팡 링크 등 활용 가능 공간 -->
-                    <div class="ad-container bg-slate-800 border border-slate-700 text-xs mb-8 rounded-lg text-center cursor-pointer hover:bg-slate-700">
-                        여기에 쿠팡 파트너스 링크 등을 연결하세요 (선택)
-                    </div>
+                  <!-- 🛒 쿠팡 파트너스 배너가 생성될 컨테이너 -->
+<div id="coupang-banner-container" class="mb-8"></div>
 
                     <div class="space-y-3">
                         <button onclick="copyLink()" class="w-full py-4 bg-indigo-600 hover:bg-indigo-500 text-white rounded-2xl font-bold text-base shadow-[0_0_20px_rgba(99,102,241,0.4)] transition-all active:scale-95 flex justify-center items-center gap-2">
@@ -798,7 +796,7 @@
 
         };
 
-        // --- UI Navigation ---
+               // --- UI Navigation ---
         function switchScreen(screenId) {
             document.querySelectorAll('.screen').forEach(el => el.classList.remove('active'));
             const target = document.getElementById(screenId);
@@ -853,6 +851,27 @@
             const m = (scores.E >= scores.I ? "E":"I") + (scores.S >= scores.N ? "S":"N") + (scores.T >= scores.F ? "T":"F") + (scores.J >= scores.P ? "J":"P");
             const res = resultsMap[m] || resultsMap["ENTJ"];
 
+            // --- 🛒 쿠팡 파트너스 맞춤형 링크 데이터 ---
+            const coupangData = {
+                "ENTJ": { url: "https://link.coupang.com/a/d0XVfo", text: "군주의 품격을 위한 절대 왕좌 보러가기" },
+                "INTJ": { url: "https://link.coupang.com/a/d0X18f", text: "완벽한 전략 구상을 위한 소음 차단기 보러가기" },
+                "INFP": { url: "https://link.coupang.com/a/d0X3im", text: "지친 영혼을 달래줄 오로라 무드등 보러가기" },
+                "ESTP": { url: "https://link.coupang.com/a/d0X4py", text: "멈추지 않는 야성을 위한 포션 한 박스 보러가기" },
+                "ISFJ": { url: "https://link.coupang.com/a/d0X5rI", text: "가디언의 뻐근한 어깨를 위한 힐링템 보러가기" },
+                "ISTJ": { url: "https://link.coupang.com/a/d0X72K", text: "오차 없는 완벽한 시간 관리 유물 보러가기" },
+                "ISFP": { url: "https://link.coupang.com/a/d0X9Hb", text: "평화를 노래하는 바람의 악기 보러가기" },
+                "INTP": { url: "https://link.coupang.com/a/d0Yapm", text: "밤샘 연구를 위한 고농축 카페인 추출기 보러가기" },
+                "ISTP": { url: "https://link.coupang.com/a/d0YbPG", text: "어떤 상황에서도 살아남는 비밀 무기 보러가기" },
+                "ESFP": { url: "https://link.coupang.com/a/d0Yczo", text: "전장을 축제로 만들어줄 환희의 증폭기 보러가기" },
+                "ENFP": { url: "https://link.coupang.com/a/d0Yd7X", text: "새로운 모험의 영감을 띄워줄 마법 영사기 보러가기" },
+                "ENTP": { url: "https://link.coupang.com/a/d0Ygik", text: "상상을 현실로 구현하는 마도공학 도구 보러가기" },
+                "ESTJ": { url: "https://link.coupang.com/a/d0YhCR", text: "완벽한 통솔을 위한 1분 1초 계획표 보러가기" },
+                "ESFJ": { url: "https://link.coupang.com/a/d0YiQh", text: "마스터의 비밀 간식 창고 채우러 가기" },
+                "ENFJ": { url: "https://link.coupang.com/a/d0Ykaz", text: "사람의 마음을 움직이는 선지자의 티타임 세트 보러가기" },
+                "INFJ": { url: "https://link.coupang.com/a/d0Yleb", text: "미래를 꿰뚫어 보는 예언자의 향기 보러가기" }
+            };
+            const myCoupang = coupangData[m] || coupangData["ENTJ"];
+
             document.getElementById('res-rank').innerText = `RANK ${res.rank}`;
             document.getElementById('res-emoji').innerText = res.emoji;
             document.getElementById('res-mbti').innerText = m;
@@ -888,6 +907,24 @@
                 let j = 0;
                 for(let val of Object.values(res.stats)) { if(fills[j]) fills[j].style.width = `${val}%`; j++; }
             }, 300);
+
+            // 🛒 쿠팡 배너 동적 생성 및 필수 문구 추가
+            const coupangContainer = document.getElementById('coupang-banner-container');
+            if(coupangContainer) {
+                coupangContainer.innerHTML = `
+                    <div class="mt-2 p-5 glass-panel border border-yellow-500/50 relative overflow-hidden group">
+                        <div class="absolute inset-0 bg-yellow-500/5 group-hover:bg-yellow-500/10 transition-colors"></div>
+                        <p class="text-yellow-400 text-[11px] font-bold mb-3 text-center uppercase tracking-widest relative z-10 flex items-center justify-center gap-1"><span>✨</span> Master's Secret Gear</p>
+                        <button onclick="window.open('${myCoupang.url}', '_blank')" 
+                                class="w-full py-4 bg-gradient-to-r from-yellow-600 to-yellow-500 hover:from-yellow-500 hover:to-yellow-400 text-slate-900 rounded-xl font-black text-sm shadow-[0_0_20px_rgba(234,179,8,0.3)] hover:shadow-[0_0_30px_rgba(234,179,8,0.5)] active:scale-95 transition-all relative z-10 flex items-center justify-center gap-2">
+                            <span>🎁</span> ${myCoupang.text}
+                        </button>
+                        <p class="text-[9px] text-slate-500 mt-4 text-center leading-relaxed relative z-10 break-keep">
+                            "이 포스팅은 쿠팡 파트너스 활동의 일환으로, 이에 따른 일정액의 수수료를 제공받습니다."
+                        </p>
+                    </div>
+                `;
+            }
         }
 
         function copyLink() {
@@ -899,8 +936,3 @@
     </script>
 </body>
 </html>
-
-
-
-
-
